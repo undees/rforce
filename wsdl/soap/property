@@ -1,0 +1,1 @@
+client.protocol.http.ssl_config.ca_file = ca.pem
