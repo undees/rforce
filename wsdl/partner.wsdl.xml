@@ -979,6 +979,7 @@ All Rights Reserved
                 </sequence>
             </complexType>
 
+	    <!-- 
             <complexType name="ApiQueryFault">
                 <complexContent>
                     <extension base="fns:ApiFault">
@@ -989,6 +990,7 @@ All Rights Reserved
                     </extension>
                 </complexContent>
             </complexType>
+	    -->
 
             <complexType name="LoginFault">
                 <complexContent>
@@ -1025,6 +1027,7 @@ All Rights Reserved
             </complexType>
             <element name="UnexpectedErrorFault" type="fns:UnexpectedErrorFault"/>
 
+	    <!-- 
             <complexType name="InvalidFieldFault">
                 <complexContent>
                     <extension base="fns:ApiQueryFault"/>
@@ -1052,6 +1055,7 @@ All Rights Reserved
                 </complexContent>
             </complexType>
             <element name="MalformedSearchFault" type="fns:MalformedSearchFault"/>
+	    -->
 
 
         </schema>

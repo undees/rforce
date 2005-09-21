@@ -7,145 +7,145 @@ class Soap < ::SOAP::RPC::Driver
   MappingRegistry = ::SOAP::Mapping::Registry.new
 
   Methods = [
-    ["login", "login",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "login"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "loginResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "login",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "login"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "loginResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["describeSObject", "describeSObject",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeSObject"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeSObjectResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "describeSObject",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeSObject"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeSObjectResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["describeSObjects", "describeSObjects",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeSObjects"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeSObjectsResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "describeSObjects",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeSObjects"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeSObjectsResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["describeGlobal", "describeGlobal",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeGlobal"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeGlobalResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "describeGlobal",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeGlobal"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeGlobalResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["describeLayout", "describeLayout",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeLayout"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeLayoutResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "describeLayout",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeLayout"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeLayoutResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["describeTabs", "describeTabs",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeTabs"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeTabsResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "describeTabs",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeTabs"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "describeTabsResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["create", "create",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "create"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "createResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "create",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "create"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "createResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["update", "update",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "update"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "updateResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "update",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "update"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "updateResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["delete", "delete",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "delete"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "deleteResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "delete",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "delete"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "deleteResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["retrieve", "retrieve",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "retrieve"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "retrieveResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "retrieve",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "retrieve"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "retrieveResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["convertLead", "convertLead",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "convertLead"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "convertLeadResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "convertLead",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "convertLead"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "convertLeadResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["getDeleted", "getDeleted",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getDeleted"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getDeletedResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "getDeleted",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getDeleted"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getDeletedResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["getUpdated", "getUpdated",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getUpdated"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getUpdatedResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "getUpdated",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getUpdated"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getUpdatedResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["query", "query",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "query"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "queryResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "query",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "query"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "queryResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["queryMore", "queryMore",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "queryMore"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "queryMoreResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "queryMore",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "queryMore"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "queryMoreResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["search", "search",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "search"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "searchResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "search",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "search"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "searchResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["getServerTimestamp", "getServerTimestamp",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getServerTimestamp"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getServerTimestampResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "getServerTimestamp",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getServerTimestamp"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getServerTimestampResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["setPassword", "setPassword",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "setPassword"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "setPasswordResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "setPassword",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "setPassword"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "setPasswordResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["resetPassword", "resetPassword",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "resetPassword"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "resetPasswordResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "resetPassword",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "resetPassword"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "resetPasswordResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ],
-    ["getUserInfo", "getUserInfo",
-      [
-        ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getUserInfo"]],
-        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getUserInfoResponse"]]
-      ],
-      "", nil, :document
+    [ "",
+      "getUserInfo",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getUserInfo"], true],
+        ["out", "parameters", ["::SOAP::SOAPElement", "urn:partner.soap.sforce.com", "getUserInfoResponse"], true] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal }
     ]
   ]
 
@@ -159,18 +159,18 @@ class Soap < ::SOAP::RPC::Driver
 private
 
   def init_methods
-    Methods.each do |name_as, name, params, soapaction, namespace, style|
-      qname = XSD::QName.new(namespace, name_as)
-      if style == :document
-        @proxy.add_document_method(soapaction, name, params)
-        add_document_method_interface(name, params)
+    Methods.each do |definitions|
+      opt = definitions.last
+      if opt[:request_style] == :document
+        add_document_operation(*definitions)
       else
-        @proxy.add_rpc_method(qname, soapaction, name, params)
-        add_rpc_method_interface(name, params)
-      end
-      if name_as != name and name_as.capitalize == name.capitalize
-        ::SOAP::Mapping.define_singleton_method(self, name_as) do |*arg|
-          __send__(name, *arg)
+        add_rpc_operation(*definitions)
+        qname = definitions[0]
+        name = definitions[2]
+        if qname.name != name and qname.name.capitalize == name.capitalize
+          ::SOAP::Mapping.define_singleton_method(self, qname.name) do |*arg|
+            __send__(name, *arg)
+          end
         end
       end
     end

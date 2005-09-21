@@ -26,33 +26,42 @@ end
 
 # Describe global objects
 
-params = DescribeGlobal.new()
-result = drv.soap.describeGlobal(params).result
-
-my_sobjects = result.types
+#params = DescribeGlobal.new()
+#result = drv.soap.describeGlobal(params).result
+#
+#my_sobjects = result.types
 
 puts "Your login can access the following objects:"
-my_sobjects.each { |type| puts type }
-puts ""
+puts drv.types.join(", ")
 
 # Describe particular SObjects
 
-params = DescribeSObjects.new(["Account", "Asset", "Product"])
-result = drv.soap.describeSObjects(params).result
+params = DescribeSObjects.new(["SelfServiceUser", "Contact"])
+result = drv.describeSObjects(["SelfServiceUser", "Contact"])
 
-acct_fields = result[0].fields
+puts "\nThe SelfServiceUser object has the following fields:"
+fieldnames = result[0].fields.collect {|field| field.name}
+puts fieldnames.join(", ")
 
-puts "The Account object has the following fields:"
-acct_fields.each { |field| puts field.name }
-puts
+puts "\nThe Contact object has the following fields:"
+fieldnames = result[1].fields.collect {|field| field.name}
+puts fieldnames.join(", ")
 
 
 # Perform a query
 
-params = Query.new("select Name, Phone, Fax from Account")
-accounts = drv.soap.query(params).result.records
+query_rslt = drv.query("select Id, ContactId, AccountId, Product2Id, CreatedDate, LastModifiedDate, Name, SerialNumber, DD_OS__c, SE__c, Support_Organization_ID__c, Sales_Order__c from Asset where SerialNumber = '03BM050004'")
+rec = query_rslt.records[0]
+#
+puts "Name: #{rec.name}\tSN: #{rec.serialNumber}\tDDOS: #{rec.dD_OS__c}\tSE: #{rec.sE__c}\tORGID: #{rec.support_Organization_ID__c}"
 
-puts "Account, Phone, Fax"
-accounts.each { |rec| puts "#{rec.name}, #{rec.phone}, #{rec.fax}" }
+query_rslt = drv.query("select LastName from Contact")
 
+query_rslt.records.each {|rec| puts rec.lastName}
+
+puts ""
+
+query_rslt = drv.queryMore(query_rslt.queryLocator)
+puts "-- -- --"
+query_rslt.records.each {|rec| puts rec.lastName}
 

@@ -4,6 +4,7 @@ require 'xsd/qname'
 class Login
   @@schema_type = "login"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["username", "SOAP::SOAPString"], ["password", "SOAP::SOAPString"]]
 
   attr_accessor :username
@@ -19,6 +20,7 @@ end
 class LoginResponse
   @@schema_type = "loginResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "LoginResult"]]
 
   attr_accessor :result
@@ -32,6 +34,7 @@ end
 class DescribeSObject
   @@schema_type = "describeSObject"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["sObjectType", "SOAP::SOAPString"]]
 
   attr_accessor :sObjectType
@@ -45,6 +48,7 @@ end
 class DescribeSObjectResponse
   @@schema_type = "describeSObjectResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "DescribeSObjectResult"]]
 
   attr_accessor :result
@@ -58,6 +62,7 @@ end
 class DescribeSObjects
   @@schema_type = "describeSObjects"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["sObjectType", "SOAP::SOAPString[]"]]
 
   attr_accessor :sObjectType
@@ -71,6 +76,7 @@ end
 class DescribeSObjectsResponse
   @@schema_type = "describeSObjectsResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "DescribeSObjectResult[]"]]
 
   attr_accessor :result
@@ -84,6 +90,7 @@ end
 class DescribeGlobal
   @@schema_type = "describeGlobal"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = []
 
   def initialize
@@ -94,6 +101,7 @@ end
 class DescribeGlobalResponse
   @@schema_type = "describeGlobalResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "DescribeGlobalResult"]]
 
   attr_accessor :result
@@ -107,6 +115,7 @@ end
 class DescribeLayout
   @@schema_type = "describeLayout"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["sObjectType", "SOAP::SOAPString"]]
 
   attr_accessor :sObjectType
@@ -120,6 +129,7 @@ end
 class DescribeLayoutResponse
   @@schema_type = "describeLayoutResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "DescribeLayoutResult"]]
 
   attr_accessor :result
@@ -133,6 +143,7 @@ end
 class DescribeTabs
   @@schema_type = "describeTabs"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = []
 
   def initialize
@@ -143,6 +154,7 @@ end
 class DescribeTabsResponse
   @@schema_type = "describeTabsResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "DescribeTabSetResult[]"]]
 
   attr_accessor :result
@@ -156,6 +168,7 @@ end
 class Create
   @@schema_type = "create"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["sObjects", "SObject[]"]]
 
   attr_accessor :sObjects
@@ -169,6 +182,7 @@ end
 class CreateResponse
   @@schema_type = "createResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "SaveResult[]"]]
 
   attr_accessor :result
@@ -182,6 +196,7 @@ end
 class Update
   @@schema_type = "update"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["sObjects", "SObject[]"]]
 
   attr_accessor :sObjects
@@ -195,6 +210,7 @@ end
 class UpdateResponse
   @@schema_type = "updateResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "SaveResult[]"]]
 
   attr_accessor :result
@@ -208,6 +224,7 @@ end
 class Delete
   @@schema_type = "delete"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["ids", "SOAP::SOAPString[]"]]
 
   attr_accessor :ids
@@ -221,6 +238,7 @@ end
 class DeleteResponse
   @@schema_type = "deleteResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "DeleteResult[]"]]
 
   attr_accessor :result
@@ -234,6 +252,7 @@ end
 class Retrieve
   @@schema_type = "retrieve"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["fieldList", "SOAP::SOAPString"], ["sObjectType", "SOAP::SOAPString"], ["ids", "SOAP::SOAPString[]"]]
 
   attr_accessor :fieldList
@@ -251,6 +270,7 @@ end
 class RetrieveResponse
   @@schema_type = "retrieveResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "SObject[]"]]
 
   attr_accessor :result
@@ -264,6 +284,7 @@ end
 class ConvertLead
   @@schema_type = "convertLead"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["leadConverts", "LeadConvert[]"]]
 
   attr_accessor :leadConverts
@@ -277,6 +298,7 @@ end
 class ConvertLeadResponse
   @@schema_type = "convertLeadResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "LeadConvertResult[]"]]
 
   attr_accessor :result
@@ -290,6 +312,7 @@ end
 class GetUpdated
   @@schema_type = "getUpdated"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["sObjectType", "SOAP::SOAPString"], ["startDate", "SOAP::SOAPDateTime"], ["endDate", "SOAP::SOAPDateTime"]]
 
   attr_accessor :sObjectType
@@ -307,6 +330,7 @@ end
 class GetUpdatedResponse
   @@schema_type = "getUpdatedResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "GetUpdatedResult"]]
 
   attr_accessor :result
@@ -320,6 +344,7 @@ end
 class GetDeleted
   @@schema_type = "getDeleted"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["sObjectType", "SOAP::SOAPString"], ["startDate", "SOAP::SOAPDateTime"], ["endDate", "SOAP::SOAPDateTime"]]
 
   attr_accessor :sObjectType
@@ -337,6 +362,7 @@ end
 class GetDeletedResponse
   @@schema_type = "getDeletedResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "GetDeletedResult"]]
 
   attr_accessor :result
@@ -350,6 +376,7 @@ end
 class Query
   @@schema_type = "query"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["queryString", "SOAP::SOAPString"]]
 
   attr_accessor :queryString
@@ -363,6 +390,7 @@ end
 class QueryResponse
   @@schema_type = "queryResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "QueryResult"]]
 
   attr_accessor :result
@@ -376,6 +404,7 @@ end
 class QueryMore
   @@schema_type = "queryMore"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["queryLocator", "SOAP::SOAPString"]]
 
   attr_accessor :queryLocator
@@ -389,6 +418,7 @@ end
 class QueryMoreResponse
   @@schema_type = "queryMoreResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "QueryResult"]]
 
   attr_accessor :result
@@ -402,6 +432,7 @@ end
 class Search
   @@schema_type = "search"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["searchString", "SOAP::SOAPString"]]
 
   attr_accessor :searchString
@@ -415,6 +446,7 @@ end
 class SearchResponse
   @@schema_type = "searchResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "SearchResult"]]
 
   attr_accessor :result
@@ -428,6 +460,7 @@ end
 class GetServerTimestamp
   @@schema_type = "getServerTimestamp"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = []
 
   def initialize
@@ -438,6 +471,7 @@ end
 class GetServerTimestampResponse
   @@schema_type = "getServerTimestampResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "GetServerTimestampResult"]]
 
   attr_accessor :result
@@ -451,6 +485,7 @@ end
 class SetPassword
   @@schema_type = "setPassword"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["userId", "SOAP::SOAPString"], ["password", "SOAP::SOAPString"]]
 
   attr_accessor :userId
@@ -466,6 +501,7 @@ end
 class SetPasswordResponse
   @@schema_type = "setPasswordResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "SetPasswordResult"]]
 
   attr_accessor :result
@@ -479,6 +515,7 @@ end
 class ResetPassword
   @@schema_type = "resetPassword"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["userId", "SOAP::SOAPString"]]
 
   attr_accessor :userId
@@ -492,6 +529,7 @@ end
 class ResetPasswordResponse
   @@schema_type = "resetPasswordResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "ResetPasswordResult"]]
 
   attr_accessor :result
@@ -505,6 +543,7 @@ end
 class GetUserInfo
   @@schema_type = "getUserInfo"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = []
 
   def initialize
@@ -515,6 +554,7 @@ end
 class GetUserInfoResponse
   @@schema_type = "getUserInfoResponse"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["result", "GetUserInfoResult"]]
 
   attr_accessor :result
@@ -528,6 +568,7 @@ end
 class SessionHeader
   @@schema_type = "SessionHeader"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["sessionId", "SOAP::SOAPString"]]
 
   attr_accessor :sessionId
@@ -541,6 +582,7 @@ end
 class CallOptions
   @@schema_type = "CallOptions"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["client", "SOAP::SOAPString"]]
 
   attr_accessor :client
@@ -554,6 +596,7 @@ end
 class QueryOptions
   @@schema_type = "QueryOptions"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["batchSize", "SOAP::SOAPInt"]]
 
   attr_accessor :batchSize
@@ -567,6 +610,7 @@ end
 class AssignmentRuleHeader
   @@schema_type = "AssignmentRuleHeader"
   @@schema_ns = "urn:partner.soap.sforce.com"
+  @@schema_qualified = "true"
   @@schema_element = [["assignmentRuleId", "SOAP::SOAPString"], ["useDefaultRule", "SOAP::SOAPBoolean"]]
 
   attr_accessor :assignmentRuleId
@@ -582,7 +626,7 @@ end
 class SObject
   @@schema_type = "sObject"
   @@schema_ns = "urn:sobject.partner.soap.sforce.com"
-  @@schema_element = [["type", "SOAP::SOAPString"], ["fieldsToNull", "SOAP::SOAPString[]"], ["id", ["SOAP::SOAPString", XSD::QName.new("urn:sobject.partner.soap.sforce.com", "Id")]], ["any", nil]]
+  @@schema_element = [["type", "SOAP::SOAPString"], ["fieldsToNull", "SOAP::SOAPString[]"], ["id", ["SOAP::SOAPString", XSD::QName.new("urn:sobject.partner.soap.sforce.com", "Id")]], ["any", [nil, XSD::QName.new(nil, "any")]]]
 
   attr_accessor :type
   attr_accessor :fieldsToNull
@@ -1245,16 +1289,6 @@ class ApiFault
   end
 end
 
-# {urn:fault.partner.soap.sforce.com}ApiQueryFault
-class ApiQueryFault
-  @@schema_type = "ApiQueryFault"
-  @@schema_ns = "urn:fault.partner.soap.sforce.com"
-  @@schema_element = []
-
-  def initialize
-  end
-end
-
 # {urn:fault.partner.soap.sforce.com}LoginFault
 class LoginFault
   @@schema_type = "LoginFault"
@@ -1298,46 +1332,6 @@ end
 # {urn:fault.partner.soap.sforce.com}UnexpectedErrorFault
 class UnexpectedErrorFault
   @@schema_type = "UnexpectedErrorFault"
-  @@schema_ns = "urn:fault.partner.soap.sforce.com"
-  @@schema_element = []
-
-  def initialize
-  end
-end
-
-# {urn:fault.partner.soap.sforce.com}InvalidFieldFault
-class InvalidFieldFault
-  @@schema_type = "InvalidFieldFault"
-  @@schema_ns = "urn:fault.partner.soap.sforce.com"
-  @@schema_element = []
-
-  def initialize
-  end
-end
-
-# {urn:fault.partner.soap.sforce.com}InvalidSObjectFault
-class InvalidSObjectFault
-  @@schema_type = "InvalidSObjectFault"
-  @@schema_ns = "urn:fault.partner.soap.sforce.com"
-  @@schema_element = []
-
-  def initialize
-  end
-end
-
-# {urn:fault.partner.soap.sforce.com}MalformedQueryFault
-class MalformedQueryFault
-  @@schema_type = "MalformedQueryFault"
-  @@schema_ns = "urn:fault.partner.soap.sforce.com"
-  @@schema_element = []
-
-  def initialize
-  end
-end
-
-# {urn:fault.partner.soap.sforce.com}MalformedSearchFault
-class MalformedSearchFault
-  @@schema_type = "MalformedSearchFault"
   @@schema_ns = "urn:fault.partner.soap.sforce.com"
   @@schema_element = []
 
