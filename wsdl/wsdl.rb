@@ -56,6 +56,11 @@ module RForce
 
     end
 
+    # Return the server timestamp
+    def getServerTimestamp
+      soap.getServerTimestamp(GetServerTimestamp.new).result.timestamp
+    end
+
     # Retrieve a list of available SObjects for this login
     def describeGlobal
       soap.describeGlobal(DescribeGlobal.new).result
