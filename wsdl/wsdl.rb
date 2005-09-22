@@ -77,6 +77,11 @@ module RForce
       soap.queryMore(QueryMore.new(locator)).result
     end
 
+    # Retrieve a list of specific objects
+    def retrieve(fieldList, from, ids)
+      soap.retrieve(Retrieve.new(fieldList, from, ids)).result
+    end
+
   end
 
 end

@@ -1289,6 +1289,16 @@ class ApiFault
   end
 end
 
+# {urn:fault.partner.soap.sforce.com}ApiQueryFault
+class ApiQueryFault
+  @@schema_type = "ApiQueryFault"
+  @@schema_ns = "urn:fault.partner.soap.sforce.com"
+  @@schema_element = []
+
+  def initialize
+  end
+end
+
 # {urn:fault.partner.soap.sforce.com}LoginFault
 class LoginFault
   @@schema_type = "LoginFault"
@@ -1332,6 +1342,46 @@ end
 # {urn:fault.partner.soap.sforce.com}UnexpectedErrorFault
 class UnexpectedErrorFault
   @@schema_type = "UnexpectedErrorFault"
+  @@schema_ns = "urn:fault.partner.soap.sforce.com"
+  @@schema_element = []
+
+  def initialize
+  end
+end
+
+# {urn:fault.partner.soap.sforce.com}InvalidFieldFault
+class InvalidFieldFault
+  @@schema_type = "InvalidFieldFault"
+  @@schema_ns = "urn:fault.partner.soap.sforce.com"
+  @@schema_element = []
+
+  def initialize
+  end
+end
+
+# {urn:fault.partner.soap.sforce.com}InvalidSObjectFault
+class InvalidSObjectFault
+  @@schema_type = "InvalidSObjectFault"
+  @@schema_ns = "urn:fault.partner.soap.sforce.com"
+  @@schema_element = []
+
+  def initialize
+  end
+end
+
+# {urn:fault.partner.soap.sforce.com}MalformedQueryFault
+class MalformedQueryFault
+  @@schema_type = "MalformedQueryFault"
+  @@schema_ns = "urn:fault.partner.soap.sforce.com"
+  @@schema_element = []
+
+  def initialize
+  end
+end
+
+# {urn:fault.partner.soap.sforce.com}MalformedSearchFault
+class MalformedSearchFault
+  @@schema_type = "MalformedSearchFault"
   @@schema_ns = "urn:fault.partner.soap.sforce.com"
   @@schema_element = []
 
