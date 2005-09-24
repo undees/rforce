@@ -19,7 +19,7 @@ passwd = ENV['RFORCE_PASS'] || DefaultPasswd
 
 if $DEBUG
   drv = RForce::WSDL.new(user, passwd, $DEBUG, 
-	"http://na1-api.salesforce.com/services/Soap/c/6.0")
+	"http://na1-api.salesforce.com/services/Soap/u/6.0")
 else
   drv = RForce::WSDL.new(user, passwd)
 end
@@ -30,12 +30,18 @@ end
 
 # NOTE: The following does NOT work -- problem with soap4r-1_5_5?
 
-mycontact = SObject.new
-mycontact.type = "Contact"
-mycontact.any = {"LastName" => "Spaceley"}
+ns = "urn:sobject.partner.soap.sforce.com"
+#ele = SOAP::SOAPElement.new(XSD::QName.new(ns, "type"))
+ele = SOAP::SOAPElement.new(XSD::QName.new(nil, "type"))
+ele.text = "Contact"
+ele.extraattr["xmlns"] = ns
+ele.add(SOAP::SOAPElement.new("LastName", "Spaceley"))
+ele.add(SOAP::SOAPElement.new("Salutation", "Mr."))
 
-params = Create.new([mycontact])
-result = drv.soap.create(params).result
+mycontact = SObject.new
+mycontact.type = ele
+
+result = drv.soap.create(Create.new([mycontact])).result
 pp result
 
 
