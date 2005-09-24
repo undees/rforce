@@ -1,5 +1,6 @@
 require 'defaultDriver.rb'
 require 'soap/header/simplehandler'
+require 'orderedhash'
  	
 class SessionHeaderHandler < SOAP::Header::SimpleHandler
 

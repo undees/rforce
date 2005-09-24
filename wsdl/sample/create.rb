@@ -31,17 +31,26 @@ end
 # NOTE: The following does NOT work -- problem with soap4r-1_5_5?
 
 ns = "urn:sobject.partner.soap.sforce.com"
-#ele = SOAP::SOAPElement.new(XSD::QName.new(ns, "type"))
-ele = SOAP::SOAPElement.new(XSD::QName.new(nil, "type"))
-ele.text = "Contact"
-ele.extraattr["xmlns"] = ns
-ele.add(SOAP::SOAPElement.new("LastName", "Spaceley"))
-ele.add(SOAP::SOAPElement.new("Salutation", "Mr."))
+#include XSD
+#result = drv.soap.create(:sObjects =>
+#  [
+#    {
+#      QName.new(ns, "type") => "Contact",
+#      QName.new(ns, "Id") => "id",
+#      :FirstName => "Joe",
+#      :lastname => "Blow",
+#      :Salutation => "Mr.",
+#      :Phone => "999.999.9999",
+#      :Title => "Purchasing Director",
+#    }
+#  ]
+#).result
 
-mycontact = SObject.new
-mycontact.type = ele
+sobj = OrderedHash.new
+sobj[XSD::QName.new(ns, 'type')] = "Contact"
+sobj[:LastName] = "Blow"
+result = drv.soap.create(:sObjects => [sobj])
 
-result = drv.soap.create(Create.new([mycontact])).result
 pp result
 
 
