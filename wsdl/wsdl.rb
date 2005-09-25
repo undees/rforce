@@ -87,6 +87,35 @@ module RForce
       soap.retrieve(Retrieve.new(fieldList, from, ids)).result
     end
 
+    # Create an SObject
+    def RForce.makeSObject(type, params)
+      sobj = OrderedHash.new
+      sobj[XSD::QName.new('urn:sobject.partner.soap.sforce.com', 'type')] = type
+      params.keys.collect { |key| sobj[key] = params[key] }
+      sobj
+    end
+
+    def create(sobjects)
+      soap.create(:sObjects => sobjects).result
+    end
+
+  end
+
+  class SObject
+    attr_accessor :type, :id, :fieldsToNull, :any
+
+    def initialize(type, id, fieldsToNull, any)
+      @type = type
+      @id = id
+      @fieldsToNull = fieldsToNull
+      @any = any
+
+      sobj = OrderedHash.new
+      sobj[XSD::QName.new('urn:sobject.partner.soap.sforce.com', 'type')] = type
+      any.keys.collect { |key| sobj[key] = any[key] }
+      sobj
+    end
+
   end
 
 end
