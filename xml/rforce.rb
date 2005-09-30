@@ -162,7 +162,12 @@ module RForce
       #Create XML text from the arguments.
       expanded = ''
       @builder = Builder::XmlMarkup.new(:target => expanded)
-      expand({method => args}, 'urn:enterprise.soap.sforce.com')
+
+      if args.nil? || args.empty?
+        @builder.tag!(method, {:xmlns => 'urn:enterprise.soap.sforce.com'})
+      else
+        expand({method => args}, 'urn:enterprise.soap.sforce.com')
+      end
 
       #Fill in the blanks of the SOAP envelope with our
       #session ID and the expanded XML of our request.
@@ -175,7 +180,7 @@ module RForce
   
     #Turns method calls on this object into remote SOAP calls.
     def method_missing(method, *args)
-      unless args.size == 1 && [Hash, Array].include?(args[0].class)
+      unless args.empty? || (args.size == 1 && [Hash, Array].include?(args[0].class))
         raise 'Expected 1 Hash or Array argument'
       end
 
