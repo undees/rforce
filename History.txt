@@ -1,0 +1,9 @@
+== 0.1.0 2005-09-02
+
+* 1 major enhancement:
+  * Initial release
+
+== 0.2.0 2008-07-03
+
+* 1 major enhancement:
+  * Incorporated fixes from ActiveSalesforce project
