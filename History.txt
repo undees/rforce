@@ -7,3 +7,8 @@
 
 * 1 major enhancement:
   * Incorporated fixes from ActiveSalesforce project
+
+== 0.2.1 2008-07-04
+
+* 1 minor enhancement:
+  * Updated examples for SalesForce API v10

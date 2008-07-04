@@ -1,6 +1,8 @@
 = rforce
 
 * http://rforce.rubyforge.org
+* http://rubyforge.org/projects/rforce
+* http://freehg.org/u/undees/rforce
 
 == DESCRIPTION:
 
