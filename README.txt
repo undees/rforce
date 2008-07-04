@@ -12,25 +12,36 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 
 == SYNOPSIS:
 
-binding = RForce::Binding.new 'na1-api.salesforce.com'
-  binding.login 'username', 'password'
-  answer = binding.search(
+  binding = RForce::Binding.new \
+    'https://na2.salesforce.com/services/Soap/u/10.0'
+
+  binding.login \
+    'email', 'password_with_token'
+
+  answer = binding.search \
     :searchString =>
-      'find {Some Account Name} in name fields returning account(id)')
-  account_id = answer.searchResponse.result.searchRecords.record.Id
+      'find {McFakerson Co} in name fields returning account(id)'
 
-  opportunity = {
-    :accountId => account_id,
-    :amount => "10.00",
-    :name => "New sale",
-    :closeDate => "2005-09-01",
-    :stageName => "Closed Won"
-  }
+  account = answer.searchResponse.result.searchRecords.record
+  account = account.first if account.is_a? Array  
 
-  binding.create 'sObject {"xsi:type" => "Opportunity"}' => opportunity
+  account_id = account.Id
+  account_id = account_id.first if account_id.is_a? Array
+
+  opportunity = [
+                 :type, 'Opportunity',
+                 :accountId, account_id,
+                 :amount, '10.00',
+                 :name, 'Fakey McFakerson',
+                 :closeDate, '2008-07-04',
+                 :stageName, 'Closed Won'
+                ]
+
+  binding.create :sObject => opportunity
   
 == REQUIREMENTS:
 
+* Builder gem
 * A SalesForce Enterprise or Developer account
 
 == INSTALL:

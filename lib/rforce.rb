@@ -55,11 +55,12 @@ require 'stringio'
 require 'rexml/document'
 require 'rexml/xpath'
 require 'rubygems'
-gem 'builder', ">= 2.0.0"
+gem 'builder', '>= 2.0.0'
+require 'builder'
 
 
 module RForce
-  VERSION = '0.2.0'
+  VERSION = '0.2.1'
 
   #Allows indexing hashes like method calls: hash.key
   #to supplement the traditional way of indexing: hash[key]
@@ -125,9 +126,45 @@ module RForce
     end
   end
 
+  #Expand Ruby data structures into XML.
+  def expand(builder, args, xmlns = nil)
+    #Nest arrays: [:a, 1, :b, 2] => [[:a, 1], [:b, 2]]
+    if (args.class == Array)
+      args.each_index{|i| args[i, 2] = [args[i, 2]]}
+    end
 
+    args.each do |key, value|
+      attributes = xmlns ? {:xmlns => xmlns} : {}
+
+      #If the XML tag requires attributes,
+      #the tag name will contain a space
+      #followed by a string representation
+      #of a hash of attributes.
+      #
+      #e.g. 'sObject {"xsi:type" => "Opportunity"}'
+      #becomes <sObject xsi:type="Opportunity>...</sObject>
+      if key.is_a? String
+        key, modifier = key.split(' ', 2)
+
+        attributes.merge!(eval(modifier)) if modifier
+      end
+
+      #Create an XML element and fill it with this
+      #value's sub-items.
+      case value
+      when Hash, Array
+        builder.tag!(key, attributes) do expand builder, value; end
+
+      when String
+        builder.tag!(key, attributes) { builder.text! value }
+      end
+    end
+  end
+  
   #Implements the connection to the SalesForce server.
   class Binding
+    include RForce
+    
     DEFAULT_BATCH_SIZE = 10
     attr_accessor :batch_size, :url, :assignment_rule_id, :use_default_rule, :update_mru, :client_id, :trigger_user_email, 
       :trigger_other_email, :trigger_auto_response_email
@@ -162,7 +199,7 @@ module RForce
     ClientIdHeader = '<partner:CallOptions soap:mustUnderstand="1"><partner:client>%s</partner:client></partner:CallOptions>'
 
     #Connect to the server securely.
-    def initialize(url, sid)
+    def initialize(url, sid = nil)
       init_server(url)
 
       @session_id = sid
@@ -212,7 +249,7 @@ module RForce
       #Create XML text from the arguments.
       expanded = ''
       @builder = Builder::XmlMarkup.new(:target => expanded)
-      expand({method => args}, 'urn:partner.soap.sforce.com')
+      expand(@builder, {method => args}, 'urn:partner.soap.sforce.com')
 
       extra_headers = ""
       extra_headers << (AssignmentRuleHeaderUsingRuleId % assignment_rule_id) if assignment_rule_id
@@ -321,42 +358,6 @@ module RForce
       end
 
       call_remote method, args[0]
-    end
-
-
-    #Expand Ruby data structures into XML.
-    def expand(args, xmlns = nil)
-      #Nest arrays: [:a, 1, :b, 2] => [[:a, 1], [:b, 2]]
-      if (args.class == Array)
-        args.each_index{|i| args[i, 2] = [args[i, 2]]}
-      end
-
-      args.each do |key, value|
-        attributes = xmlns ? {:xmlns => xmlns} : {}
-
-        #If the XML tag requires attributes,
-        #the tag name will contain a space
-        #followed by a string representation
-        #of a hash of attributes.
-        #
-        #e.g. 'sObject {"xsi:type" => "Opportunity"}'
-        #becomes <sObject xsi:type="Opportunity>...</sObject>
-        if key.is_a? String
-          key, modifier = key.split(' ', 2)
-
-          attributes.merge!(eval(modifier)) if modifier
-        end
-
-        #Create an XML element and fill it with this
-        #value's sub-items.
-        case value
-        when Hash, Array
-          @builder.tag!(key, attributes) do expand value; end
-
-        when String
-          @builder.tag!(key, attributes) { @builder.text! value }
-        end
-      end
     end
   end
 end

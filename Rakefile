@@ -5,8 +5,9 @@ require 'hoe'
 require './lib/rforce.rb'
 
 Hoe.new('rforce', RForce::VERSION) do |p|
-  # p.rubyforge_name = 'rforcex' # if different than lowercase project name
   p.developer('Ian Dees', 'undees@gmail.com')
+  p.extra_deps = [['builder', '>= 2.0.0']]
+  p.extra_dev_deps = [['hoe', '>= 1.7.0']]
   p.remote_rdoc_dir = ''
 end
 
