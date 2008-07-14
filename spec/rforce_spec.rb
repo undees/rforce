@@ -42,8 +42,12 @@ describe SoapResponse do
     fname = File.join(File.dirname(__FILE__), 'soap-response.xml')
     @contents = File.open(fname) {|f| f.read}
 
-    @rexml_recs, @expat_recs = [SoapResponse, SoapResponseExpat].map do |klass|
+    @rexml_recs, @expat_recs, @hpricot_recs =
+        [SoapResponse, SoapResponseExpat, SoapResponseHpricot].map do |klass|
+      started_at = Time.now
       results = klass.new(@contents)
+      elapsed = Time.now - started_at
+      puts "Elapsed: #{elapsed}"
       results[:queryResponse][:result][:records]
     end
     
@@ -55,16 +59,23 @@ describe SoapResponse do
   
   it 'loosely matches the expat results' do
     @expat_recs.size.should == @rexml_recs.size
+    @hpricot_recs.size.should == @rexml_recs.size
+
     @rexml_recs.each_with_index do |rexml_rec, index|
       expat_rec = @expat_recs[index]
+      hpricot_rec = @hpricot_recs[index]
+
+      hpricot_rec[:Id].inspect.should == rexml_rec[:Id].inspect
       rexml_rec[:Id].each do |id|
         id.should == expat_rec[:Id]
       end
       
       rexml_rec.keys.should == expat_rec.keys
+      rexml_rec.keys.should == hpricot_rec.keys
       rexml_rec.each do |key|
         unless key == :Id
           rexml_rec[key].should == expat_rec[key]
+          rexml_rec[key].should == hpricot_rec[key]
         end
       end
     end
@@ -73,6 +84,7 @@ describe SoapResponse do
   it 'exactly matches the expat results' do
     pending 'Still have to work out Id tags' do
       @rexml_recs.should == @expat_recs
+      @rexml_recs.should == @hpricot_recs
     end
   end
 end
