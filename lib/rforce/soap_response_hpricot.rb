@@ -3,6 +3,8 @@ require 'hpricot'
 
 module RForce
   class SoapResponseHpricot
+    include MethodKeys
+
     #Parses an XML string into structured data.
     def initialize(content)
       document = Hpricot.XML(content)
@@ -12,7 +14,7 @@ module RForce
     end
 
     #Allows this object to act like a hash (and therefore
-    #as a FlashHash via the include above).
+    #via MethodKeys via the include above).
     def [](symbol)
       @parsed[symbol]
     end
@@ -32,8 +34,8 @@ module RForce
         return children.first
       end
 
-      #Convert nodes with children into FlashHashes.
-      elements = {}
+      #Convert nodes with children into MethodHashes.
+      elements = MethodHash.new
 
       #Add all the element's children to the hash.
       children.each do |e|

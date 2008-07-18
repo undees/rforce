@@ -3,7 +3,7 @@ require 'rforce/soap_pullable'
 
 module RForce
   class SoapResponseExpat
-    include FlashHash
+    include MethodKeys
     include SoapPullable
 
     def initialize(content)

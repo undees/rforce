@@ -1,13 +1,23 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 require 'pp'
 
-describe FlashHash do
+describe MethodKeys do
   it 'lets you access hash keys with methods' do
     h = {:foo => :bar}
-    class << h; include FlashHash; end
+    class << h; include MethodKeys; end
 
     h.foo.should == :bar
     h.nonexistent.should be_nil
+  end
+  
+  it 'provides a Hash-like class' do
+    mh = MethodHash.new
+    mh[:one] = 1
+    mh[:ten] = 10
+
+    mh.one.should == 1
+    mh.ten.should == 10
+    mh.nothing.should be_nil
   end
 end
 

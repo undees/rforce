@@ -58,7 +58,7 @@ require 'rubygems'
 gem 'builder', '>= 2.0.0'
 require 'builder'
 
-require 'rforce/flash_hash'
+require 'rforce/method_keys'
 require 'rforce/binding'
 require 'rforce/soap_response'
 require 'rforce/soap_response_expat' rescue nil
