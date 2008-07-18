@@ -45,11 +45,11 @@ describe SoapResponse do
       results = klass.new(@contents)
       results[:queryResponse][:result][:records]
     end
-    
   end
 
   it 'turns XML into objects' do
     @rexml_recs.size.should == 58
+    @rexml_recs.first.keys.size.should == 99
   end
   
   it 'loosely matches the expat results' do
@@ -60,9 +60,10 @@ describe SoapResponse do
       expat_rec = @expat_recs[index]
       hpricot_rec = @hpricot_recs[index]
 
-      hpricot_rec[:Id].inspect.should == rexml_rec[:Id].inspect
-      rexml_rec[:Id].each do |id|
-        id.should == expat_rec[:Id]
+      expat_rec[:Id].inspect.should == rexml_rec[:Id].inspect
+
+      hpricot_rec[:Id].each do |hid|
+        hid.inspect.should == rexml_rec[:Id].inspect
       end
       
       rexml_rec.keys.should == expat_rec.keys
