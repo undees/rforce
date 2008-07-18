@@ -65,9 +65,9 @@ require 'rforce/soap_response_expat' rescue nil
 require 'rforce/soap_response_hpricot' rescue nil
 
 module RForce
-  #Expand Ruby data structures into XML.
+  # Expand Ruby data structures into XML.
   def expand(builder, args, xmlns = nil)
-    #Nest arrays: [:a, 1, :b, 2] => [[:a, 1], [:b, 2]]
+    # Nest arrays: [:a, 1, :b, 2] => [[:a, 1], [:b, 2]]
     if (args.class == Array)
       args.each_index{|i| args[i, 2] = [args[i, 2]]}
     end
@@ -75,21 +75,21 @@ module RForce
     args.each do |key, value|
       attributes = xmlns ? {:xmlns => xmlns} : {}
 
-      #If the XML tag requires attributes,
-      #the tag name will contain a space
-      #followed by a string representation
-      #of a hash of attributes.
+      # If the XML tag requires attributes,
+      # the tag name will contain a space
+      # followed by a string representation
+      # of a hash of attributes.
       #
-      #e.g. 'sObject {"xsi:type" => "Opportunity"}'
-      #becomes <sObject xsi:type="Opportunity>...</sObject>
+      # e.g. 'sObject {"xsi:type" => "Opportunity"}'
+      # becomes <sObject xsi:type="Opportunity>...</sObject>
       if key.is_a? String
         key, modifier = key.split(' ', 2)
 
         attributes.merge!(eval(modifier)) if modifier
       end
 
-      #Create an XML element and fill it with this
-      #value's sub-items.
+      # Create an XML element and fill it with this
+      # value's sub-items.
       case value
       when Hash, Array
         builder.tag!(key, attributes) do expand builder, value; end
