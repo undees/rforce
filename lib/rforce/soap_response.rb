@@ -7,7 +7,6 @@ module RForce
   # Turns an XML response from the server into a Ruby
   # object whose methods correspond to nested XML elements.
   class SoapResponse
-    include MethodKeys
     include SoapPullable
 
     %w(attlistdecl cdata comment doctype doctype_end elementdecl
@@ -23,11 +22,12 @@ module RForce
     def parse
       @current_value = nil
       @stack = []
-      @parsed = {}
+      @parsed = OpenHash.new({})
       @done = false
       @namespaces = []
 
       REXML::Document.parse_stream @content, self
+      
       @parsed
     end
   end

@@ -1,26 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 require 'pp'
 
-describe MethodKeys do
-  it 'lets you access hash keys with methods' do
-    h = {:foo => :bar}
-    class << h; include MethodKeys; end
-
-    h.foo.should == :bar
-    h.nonexistent.should be_nil
-  end
-  
-  it 'provides a Hash-like class' do
-    mh = MethodHash.new
-    mh[:one] = 1
-    mh[:ten] = 10
-
-    mh.one.should == 1
-    mh.ten.should == 10
-    mh.nothing.should be_nil
-  end
-end
-
 describe 'expand' do
   it 'turns Ruby into XML' do
     xmlns = 'urn:partner.soap.sforce.com'
@@ -53,7 +33,7 @@ describe SoapResponse do
     @rexml_recs, @expat_recs, @hpricot_recs =
         [SoapResponse, SoapResponseExpat, SoapResponseHpricot].map do |klass|
       results = klass.new(@contents).parse
-      results[:queryResponse][:result][:records]
+      results.queryResponse.result.records
     end
   end
 

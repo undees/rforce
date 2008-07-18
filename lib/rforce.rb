@@ -58,7 +58,9 @@ require 'rubygems'
 gem 'builder', '>= 2.0.0'
 require 'builder'
 
-require 'rforce/method_keys'
+gem 'facets', '>= 2.4'
+require 'facets/openhash'
+
 require 'rforce/binding'
 require 'rforce/soap_response'
 require 'rforce/soap_response_expat' rescue nil
