@@ -15,8 +15,6 @@ describe 'expand' do
   it 'turns Ruby into XML' do
     xmlns = 'urn:partner.soap.sforce.com'
 
-#     'sObject {"xsi:type" => "Opportunity"}'
-    
     expanded = ''
     builder = Builder::XmlMarkup.new(:target => expanded)
 
@@ -44,10 +42,7 @@ describe SoapResponse do
 
     @rexml_recs, @expat_recs, @hpricot_recs =
         [SoapResponse, SoapResponseExpat, SoapResponseHpricot].map do |klass|
-      started_at = Time.now
       results = klass.new(@contents)
-      elapsed = Time.now - started_at
-      puts "Elapsed: #{elapsed}"
       results[:queryResponse][:result][:records]
     end
     
