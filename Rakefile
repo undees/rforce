@@ -1,8 +1,9 @@
 # -*- ruby -*-
 
+$:.unshift './lib'
 require 'rubygems'
 require 'hoe'
-require './lib/rforce.rb'
+require 'rforce/version'
 
 Hoe.new('rforce', RForce::VERSION) do |p|
   p.developer('Ian Dees', 'undees@gmail.com')
