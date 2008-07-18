@@ -19,7 +19,7 @@ module RForce
         return
       end
             
-      @stack.push({})
+      @stack.push(MethodHash.new)
     end
     
     def text(data)

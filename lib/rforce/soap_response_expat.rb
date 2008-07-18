@@ -7,13 +7,17 @@ module RForce
     include SoapPullable
 
     def initialize(content)
+      @content = content
+    end
+    
+    def parse   
       @current_value = nil
       @stack = []
       @parsed = {}
       @done = false
       @namespaces = []
-      
-      XML::Parser.new.parse(content) do |type, name, data|
+
+      XML::Parser.new.parse(@content) do |type, name, data|
         case type
         when XML::Parser::START_ELEM
           tag_start name, data
@@ -26,11 +30,7 @@ module RForce
         break if @done
       end
 
-      self
-    end
-
-    def [](key)
-      @parsed[key.to_sym]
+      @parsed
     end
   end
 end

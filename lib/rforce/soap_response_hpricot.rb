@@ -3,24 +3,21 @@ require 'hpricot'
 
 module RForce
   class SoapResponseHpricot
-    include MethodKeys
-
     # Parses an XML string into structured data.
     def initialize(content)
-      document = Hpricot.XML(content)
-      node = document%'soapenv:Body'
-      
-      @parsed = SoapResponseHpricot.parse node
-    end
-
-    # Allows this object to act like a hash (and therefore
-    # via MethodKeys via the include above).
-    def [](symbol)
-      @parsed[symbol]
+      @content = content
     end
 
     # Digests an XML DOM node into nested Ruby types.
-    def SoapResponseHpricot.parse(node)
+    def parse
+      document = Hpricot.XML(@content)
+      node = document % 'soapenv:Body'
+      self.class.node_to_ruby node
+    end
+    
+    private
+    
+    def self.node_to_ruby(node)
       # Convert text nodes into simple strings.
       children = node.children.reject do |c|
         c.is_a?(Hpricot::Text) && c.to_s.strip.empty?
@@ -50,20 +47,20 @@ module RForce
 
         case elements[name]
           # The most common case: unique child element tags.
-        when NilClass: elements[name] = parse(e)
+        when NilClass: elements[name] = node_to_ruby(e)
 
           # Non-unique child elements become arrays:
 
           # We've already created the array: just
           # add the element.
-        when Array: elements[name] << parse(e)
+        when Array: elements[name] << node_to_ruby(e)
 
           # We haven't created the array yet: do so,
           # then put the existing element in, followed
           # by the new one.
         else
           elements[name] = [elements[name]]
-          elements[name] << parse(e)
+          elements[name] << node_to_ruby(e)
         end
       end
 
@@ -71,4 +68,3 @@ module RForce
     end
   end
 end
-

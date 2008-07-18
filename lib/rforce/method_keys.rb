@@ -3,6 +3,7 @@ module RForce
   # to supplement the traditional way of indexing: hash[key]
   module MethodKeys
     def method_missing(method, *args)
+      raise NoMethodError unless respond_to?('[]')
       self[method]
     end
   end

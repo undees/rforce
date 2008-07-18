@@ -9,7 +9,7 @@ task :timing do
    RForce::SoapResponseExpat,
    RForce::SoapResponseHpricot].each do |klass|
     started_at = Time.now
-    results = klass.new(contents)
+    klass.new(contents).parse
     elapsed = Time.now - started_at
     puts "#{klass}: #{elapsed}"
   end

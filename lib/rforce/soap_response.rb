@@ -15,21 +15,20 @@ module RForce
       define_method(unused) {}
     end
 
-    # Parses an XML string into structured data.
     def initialize(content)
+      @content = content
+    end
+    
+    # Parses an XML string into structured data.
+    def parse
       @current_value = nil
       @stack = []
       @parsed = {}
       @done = false
       @namespaces = []
 
-      REXML::Document.parse_stream content, self
-    end
-
-    # Allows this object to act like a hash (and therefore
-    # via MethodKeys from the include above).
-    def [](symbol)
-      @parsed[symbol]
+      REXML::Document.parse_stream @content, self
+      @parsed
     end
   end
 end

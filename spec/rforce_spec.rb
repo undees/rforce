@@ -52,7 +52,7 @@ describe SoapResponse do
 
     @rexml_recs, @expat_recs, @hpricot_recs =
         [SoapResponse, SoapResponseExpat, SoapResponseHpricot].map do |klass|
-      results = klass.new(@contents)
+      results = klass.new(@contents).parse
       results[:queryResponse][:result][:records]
     end
   end
