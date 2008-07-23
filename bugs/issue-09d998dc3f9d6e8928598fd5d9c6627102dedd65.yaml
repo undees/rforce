@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Investigate libxml
+desc: The libxml-ruby project just released an updated gem, and it's reputed to be fast and stable.  We should investigate it as an alternative parser.
+type: :feature
+component: rforce
+release: 
+reporter: Luigi Montanez <luigi.montanez@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-23 17:15:33.479204 Z
+references: []
+
+id: 09d998dc3f9d6e8928598fd5d9c6627102dedd65
+log_events: 
+- - 2008-07-23 17:15:36.027132 Z
+  - Ian Dees <undees@gmail.com>
+  - created
+  - ""

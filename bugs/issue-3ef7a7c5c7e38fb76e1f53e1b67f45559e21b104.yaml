@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Do something with expand()
+desc: expand() was just dumped into the RForce namespace as a minimal step in the direction of testability.  There's probably a much better home for it.
+type: :task
+component: rforce
+release: 
+reporter: Ian Dees <undees@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-23 17:16:45.714702 Z
+references: []
+
+id: 3ef7a7c5c7e38fb76e1f53e1b67f45559e21b104
+log_events: 
+- - 2008-07-23 17:16:47.083713 Z
+  - Ian Dees <undees@gmail.com>
+  - created
+  - ""

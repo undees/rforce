@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Select XML parser at runtime
+desc: |-
+  XML parsing is done by three different classes: SoapResponse, SoapResponseHpricot, and SoapResponseExpat.  The Binding class, in a holdover from the old days, is hard-coded to use SoapResponse.
+  
+  At the very least, we should scan the installed libraries / gems and choose the fastest one available.  We might also allow Binding's initializer to pass in a specific parser.
+type: :task
+component: rforce
+release: 
+reporter: Ian Dees <undees@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-23 17:10:22.283059 Z
+references: []
+
+id: c92d34e10038ba6b9acfd7e3dfb2b154e463baba
+log_events: 
+- - 2008-07-23 17:10:29.352269 Z
+  - Ian Dees <undees@gmail.com>
+  - created
+  - ""
