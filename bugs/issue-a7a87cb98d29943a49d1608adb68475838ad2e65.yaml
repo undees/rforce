@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Binding#call_remote should use parse()
+desc: Search for uses of the old API (SoapResponse#new) and replace with the new API (SoapResponse#parse).
+type: :bugfix
+component: rforce
+release: "0.3"
+reporter: Ian Dees <undees@gmail.com>
+status: :closed
+disposition: :fixed
+creation_time: 2008-07-28 05:37:21.978938 Z
+references: []
+
+id: a7a87cb98d29943a49d1608adb68475838ad2e65
+log_events: 
+- - 2008-07-28 05:37:24.755692 Z
+  - Ian Dees <undees@gmail.com>
+  - created
+  - ""
+- - 2008-07-28 05:39:29.817686 Z
+  - Ian Dees <undees@gmail.com>
+  - closed issue with disposition fixed
+  - Done.

@@ -6,7 +6,7 @@ require 'rforce/soap_pullable'
 module RForce
   # Turns an XML response from the server into a Ruby
   # object whose methods correspond to nested XML elements.
-  class SoapResponse
+  class SoapResponseRexml
     include SoapPullable
 
     %w(attlistdecl cdata comment doctype doctype_end elementdecl

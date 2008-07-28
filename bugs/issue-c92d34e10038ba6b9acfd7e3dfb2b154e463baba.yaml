@@ -6,10 +6,10 @@ desc: |-
   At the very least, we should scan the installed libraries / gems and choose the fastest one available.  We might also allow Binding's initializer to pass in a specific parser.
 type: :task
 component: rforce
-release: 
+release: "0.3"
 reporter: Ian Dees <undees@gmail.com>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-07-23 17:10:22.283059 Z
 references: []
 
@@ -19,3 +19,11 @@ log_events:
   - Ian Dees <undees@gmail.com>
   - created
   - ""
+- - 2008-07-28 05:37:48.378891 Z
+  - Ian Dees <undees@gmail.com>
+  - assigned to release 0.3 from unassigned
+  - ""
+- - 2008-07-28 05:39:05.294916 Z
+  - Ian Dees <undees@gmail.com>
+  - closed issue with disposition fixed
+  - Used the simple fix of seeing which constants are defined and assigning SoapResponse based on that.

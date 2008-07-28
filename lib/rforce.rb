@@ -62,11 +62,22 @@ gem 'facets', '>= 2.4'
 require 'facets/openhash'
 
 require 'rforce/binding'
-require 'rforce/soap_response'
-require 'rforce/soap_response_expat' rescue nil
+require 'rforce/soap_response_rexml'
 require 'rforce/soap_response_hpricot' rescue nil
+require 'rforce/soap_response_expat' rescue nil
+
 
 module RForce
+  # Use the fastest XML parser available.
+  def self.parser(name)
+      RForce.const_get(name) rescue nil
+  end
+  
+  SoapResponse = 
+    parser(:SoapResponseExpat) ||
+    parser(:SoapResponseHpricot) ||
+    SoapResponseRexml
+  
   # Expand Ruby data structures into XML.
   def expand(builder, args, xmlns = nil)
     # Nest arrays: [:a, 1, :b, 2] => [[:a, 1], [:b, 2]]

@@ -147,7 +147,7 @@ module RForce
         content = decode(response)
       end
 
-      SoapResponse.new(content)
+      SoapResponse.new(content).parse
     end
 
 

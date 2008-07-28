@@ -31,7 +31,7 @@ describe SoapResponse do
     @contents = File.open(fname) {|f| f.read}
 
     @rexml_recs, @expat_recs, @hpricot_recs =
-        [SoapResponse, SoapResponseExpat, SoapResponseHpricot].map do |klass|
+        [SoapResponseRexml, SoapResponseExpat, SoapResponseHpricot].map do |klass|
       results = klass.new(@contents).parse
       results.queryResponse.result.records
     end
