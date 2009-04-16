@@ -19,16 +19,16 @@ module RForce
     
     def self.node_to_ruby(node)
       # Convert text nodes into simple strings.
-      children = node.children.reject do |c|
+      children = (node.children || []).reject do |c|
         c.is_a?(Hpricot::Text) && c.to_s.strip.empty?
       end
 
       if node.is_a?(Hpricot::Text)
-        return node.inner_text
+        return node.inner_text.to_s
       end
       
       if children.first.is_a?(Hpricot::Text)
-        return children.first
+        return children.first.to_s
       end
 
       # Convert nodes with children into MethodHashes.

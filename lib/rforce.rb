@@ -63,8 +63,8 @@ require 'facets/openhash'
 
 require 'rforce/binding'
 require 'rforce/soap_response_rexml'
-require 'rforce/soap_response_hpricot' rescue nil
-require 'rforce/soap_response_expat' rescue nil
+begin; require 'rforce/soap_response_hpricot'; rescue LoadError; end
+begin; require 'rforce/soap_response_expat'; rescue LoadError; end
 
 
 module RForce

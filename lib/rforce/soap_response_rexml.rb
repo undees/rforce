@@ -11,7 +11,7 @@ module RForce
 
     %w(attlistdecl cdata comment doctype doctype_end elementdecl
        entity entitydecl instruction notationdecl xmldecl).each do |unused|
-      define_method(unused) {}
+      define_method(unused) {|*args|}
     end
 
     def initialize(content)
