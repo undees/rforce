@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
-require 'pp'
 
 describe 'expand' do
   it 'turns Ruby into XML' do
