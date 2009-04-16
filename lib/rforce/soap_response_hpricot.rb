@@ -47,13 +47,13 @@ module RForce
 
         case elements[name]
           # The most common case: unique child element tags.
-        when NilClass: elements[name] = node_to_ruby(e)
+        when NilClass then elements[name] = node_to_ruby(e)
 
           # Non-unique child elements become arrays:
 
           # We've already created the array: just
           # add the element.
-        when Array: elements[name] << node_to_ruby(e)
+        when Array then elements[name] << node_to_ruby(e)
 
           # We haven't created the array yet: do so,
           # then put the existing element in, followed

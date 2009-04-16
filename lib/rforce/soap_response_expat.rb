@@ -18,11 +18,11 @@ module RForce
 
       XML::Parser.new.parse(@content) do |type, name, data|
         case type
-        when XML::Parser::START_ELEM
+        when XML::Parser::START_ELEM then
           tag_start name, data
-        when XML::Parser::CDATA
+        when XML::Parser::CDATA then
           text data
-        when XML::Parser::END_ELEM
+        when XML::Parser::END_ELEM then
           tag_end name
         end
           

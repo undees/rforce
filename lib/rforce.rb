@@ -104,10 +104,10 @@ module RForce
       # Create an XML element and fill it with this
       # value's sub-items.
       case value
-      when Hash, Array
+      when Hash, Array then
         builder.tag!(key, attributes) do expand builder, value; end
 
-      when String
+      when String then
         builder.tag!(key, attributes) { builder.text! value }
       end
     end

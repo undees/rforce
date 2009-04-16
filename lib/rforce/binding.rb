@@ -160,7 +160,7 @@ module RForce
 
       # decode gzip
       case encoding.strip
-      when 'gzip':
+      when 'gzip' then
         begin
           gzr = Zlib::GzipReader.new(StringIO.new(response.body))
           decoded = gzr.read

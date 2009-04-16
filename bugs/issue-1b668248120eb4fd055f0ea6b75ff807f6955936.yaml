@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Ruby 1.9 compatibility
+desc: Syntax, specs, and functional.
+type: :task
+component: rforce
+release: "0.3"
+reporter: Ian Dees <undees@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2009-04-16 06:27:47.790789 Z
+references: []
+
+id: 1b668248120eb4fd055f0ea6b75ff807f6955936
+log_events: 
+- - 2009-04-16 06:27:51.734012 Z
+  - Ian Dees <undees@gmail.com>
+  - created
+  - ""
