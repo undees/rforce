@@ -17,22 +17,30 @@ describe 'expand' do
          'partner:sObjects',
            ['spartner:type', 'Account',
             'Name', 'Acme Rockets, Inc.']]]
-       
+
     expand(builder, data)
 
     expanded.should == CreateXml
   end
 end
 
-describe SoapResponse do
+describe 'a SoapResponse implementation' do
   before :all do
     fname = File.join(File.dirname(__FILE__), 'soap-response.xml')
     @contents = File.open(fname) {|f| f.read}
 
-    @rexml_recs, @expat_recs, @hpricot_recs =
-        [SoapResponseRexml, SoapResponseExpat, SoapResponseHpricot].map do |klass|
-      results = klass.new(@contents).parse
-      results.queryResponse.result.records
+    [:rexml, :expat, :hpricot].each do |processor|
+      name = "SoapResponse#{processor.to_s.capitalize}"
+      variable = "@#{processor}_recs"
+
+      results = begin
+        klass = RForce.const_get name
+        klass.new(@contents).parse.queryResponse.result.records
+      rescue NameError
+        nil
+      end
+
+      instance_variable_set(variable, results)
     end
   end
 
@@ -40,37 +48,25 @@ describe SoapResponse do
     @rexml_recs.size.should == 58
     @rexml_recs.first.keys.size.should == 99
   end
-  
-  it 'loosely matches the expat results' do
-    @expat_recs.size.should == @rexml_recs.size
-    @hpricot_recs.size.should == @rexml_recs.size
 
-    @rexml_recs.each_with_index do |rexml_rec, index|
-      expat_rec = @expat_recs[index]
-      hpricot_rec = @hpricot_recs[index]
-
-      expat_rec[:Id].inspect.should == rexml_rec[:Id].inspect
-
-      hpricot_rec[:Id].each do |hid|
-        hid.inspect.should == rexml_rec[:Id].inspect
-      end
-      
-      rexml_rec.keys.should == expat_rec.keys
-      rexml_rec.keys.should == hpricot_rec.keys
-      rexml_rec.each do |key|
-        unless key == :Id
-          rexml_rec[key].should == expat_rec[key]
-          rexml_rec[key].should == hpricot_rec[key]
-        end
-      end
-    end
+  it 'returns the same results with expat' do
+    pending 'duplicate <Id> tags'
+    @expat_recs.should == @rexml_recs
   end
-  
-  it 'exactly matches the expat results' do
-    pending 'Still have to work out Id tags' do
-      @rexml_recs.should == @expat_recs
-      @rexml_recs.should == @hpricot_recs
-    end
+
+  it 'returns the same results with hpricot' do
+    pending 'duplicate <Id> tags'
+    @hpricot_recs.should == @rexml_recs
+  end
+
+  it 'returns similar results with expat' do
+    pending 'expat not installed' unless @expat_recs
+    @expat_recs.should resemble(@rexml_recs)
+  end
+
+  it 'returns similar results with hpricot' do
+    pending 'hpricot not installed' unless @hpricot_recs
+    @hpricot_recs.should resemble(@rexml_recs)
   end
 end
 

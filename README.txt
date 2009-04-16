@@ -2,7 +2,8 @@
 
 * http://rforce.rubyforge.org
 * http://rubyforge.org/projects/rforce
-* http://freehg.org/u/undees/rforce
+* http://bitbucket.org/undees/rforce
+* http://github.com/undees/rforce
 
 == DESCRIPTION:
 
@@ -15,7 +16,7 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 == SYNOPSIS:
 
   binding = RForce::Binding.new \
-    'https://na2.salesforce.com/services/Soap/u/10.0'
+    'https://www.salesforce.com/services/Soap/u/10.0'
 
   binding.login \
     'email', 'password_with_token'
@@ -52,7 +53,7 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 
 == LICENSE:
 
-Copyright (c) 2005-2008 Ian Dees
+Copyright (c) 2005-2009 Ian Dees and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

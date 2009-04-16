@@ -1,6 +1,5 @@
 =begin
-RForce v0.3
-Copyright (c) 2005-2008 Ian Dees and contributors
+Copyright (c) 2005-2009 Ian Dees and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +28,7 @@ SOFTWARE.
 #
 #  Example:
 #
-#    binding = RForce::Binding.new 'na1-api.salesforce.com'
+#    binding = RForce::Binding.new 'https://www.salesforce.com/services/Soap/u/10.0'
 #    binding.login 'username', 'password'
 #    answer = binding.search(
 #      :searchString =>

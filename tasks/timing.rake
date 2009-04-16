@@ -5,12 +5,17 @@ task :timing do
   fname = File.join(File.dirname(__FILE__), '../spec/soap-response.xml')
   contents = File.open(fname) {|f| f.read}
 
-  [RForce::SoapResponseRexml,
-   RForce::SoapResponseExpat,
-   RForce::SoapResponseHpricot].each do |klass|
-    started_at = Time.now
-    klass.new(contents).parse
-    elapsed = Time.now - started_at
-    puts "#{klass}: #{elapsed}"
+  [:SoapResponseRexml,
+   :SoapResponseExpat,
+   :SoapResponseHpricot].each do |name|
+    begin
+      klass = RForce.const_get name
+      started_at = Time.now
+      klass.new(contents).parse
+      elapsed = Time.now - started_at
+      puts "#{klass}: #{elapsed}"
+    rescue NameError
+      # no-op
+    end
   end
 end

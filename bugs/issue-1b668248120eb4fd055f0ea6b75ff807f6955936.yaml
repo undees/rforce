@@ -5,8 +5,8 @@ type: :task
 component: rforce
 release: "0.3"
 reporter: Ian Dees <undees@gmail.com>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2009-04-16 06:27:47.790789 Z
 references: []
 
@@ -16,3 +16,7 @@ log_events:
   - Ian Dees <undees@gmail.com>
   - created
   - ""
+- - 2009-04-16 19:27:46.187665 Z
+  - Ian Dees <undees@gmail.com>
+  - closed with disposition fixed
+  - Support REXML and Hpricot on 1.9, degrade gracefully.
