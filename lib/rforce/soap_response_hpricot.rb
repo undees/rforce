@@ -14,7 +14,7 @@ module RForce
       node = document % 'soapenv:Body'
       self.class.node_to_ruby node
     end
-    
+
     private
     
     def self.node_to_ruby(node)
@@ -26,7 +26,7 @@ module RForce
       if node.is_a?(Hpricot::Text)
         return node.inner_text.to_s
       end
-      
+
       if children.first.is_a?(Hpricot::Text)
         return children.first.to_s
       end
@@ -38,11 +38,11 @@ module RForce
       children.each do |e|
         next if e.is_a?(Hpricot::Text) && e.to_s.strip.empty?
         name = e.name
-        
+
         if name.include? ':'
           name = name.split(':').last
         end
-        
+
         name = name.to_sym
 
         case elements[name]

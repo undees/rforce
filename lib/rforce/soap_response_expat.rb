@@ -8,8 +8,8 @@ module RForce
     def initialize(content)
       @content = content
     end
-    
-    def parse   
+
+    def parse
       @current_value = nil
       @stack = []
       @parsed = OpenHash.new({})
@@ -25,7 +25,7 @@ module RForce
         when XML::Parser::END_ELEM then
           tag_end name
         end
-          
+
         break if @done
       end
 

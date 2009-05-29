@@ -71,12 +71,12 @@ module RForce
   def self.parser(name)
       RForce.const_get(name) rescue nil
   end
-  
-  SoapResponse = 
+
+  SoapResponse =
     parser(:SoapResponseExpat) ||
     parser(:SoapResponseHpricot) ||
     SoapResponseRexml
-  
+
   # Expand Ruby data structures into XML.
   def expand(builder, args, xmlns = nil)
     # Nest arrays: [:a, 1, :b, 2] => [[:a, 1], [:b, 2]]
@@ -111,5 +111,5 @@ module RForce
       end
     end
   end
-  
+
 end

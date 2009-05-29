@@ -84,4 +84,3 @@ CreateXml = <<HERE.gsub(/\n\s*/, '')
   </partner:sObjects>
 </partner:create>
 HERE
-
