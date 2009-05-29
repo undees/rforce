@@ -1,4 +1,5 @@
 require 'hpricot'
+require 'cgi'
 
 
 module RForce
@@ -16,7 +17,11 @@ module RForce
     end
 
     private
-    
+
+    def self.unescapeXML(string)
+      CGI.unescapeHTML(string).gsub("&apos;", "'")
+    end
+
     def self.node_to_ruby(node)
       # Convert text nodes into simple strings.
       children = (node.children || []).reject do |c|
@@ -24,11 +29,11 @@ module RForce
       end
 
       if node.is_a?(Hpricot::Text)
-        return node.inner_text.to_s
+        return SoapResponseHpricot.unescapeXML(node.inspect[1..-2])
       end
 
       if children.first.is_a?(Hpricot::Text)
-        return children.first.to_s
+        return SoapResponseHpricot.unescapeXML(children.first.inspect[1..-2])
       end
 
       # Convert nodes with children into MethodHashes.

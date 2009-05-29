@@ -68,6 +68,21 @@ describe 'a SoapResponse implementation' do
     pending 'hpricot not installed' unless @hpricot_recs
     @hpricot_recs.should resemble(@rexml_recs)
   end
+
+  it 'understands XML entities' do
+    expected = "Bee's knees"
+    @rexml_recs.first.Description.should   == expected
+    @expat_recs.first.Description.should   == expected
+    @hpricot_recs.first.Description.should == expected
+  end
+end
+
+describe 'SoapResponseHpricot' do
+  it 'parses basic XML entities' do
+    text = '&lt;tag attr=&quot;Bee&apos;s knees &amp; toes&quot;&gt;'
+    SoapResponseHpricot.unescapeXML(text).should ==
+      %q(<tag attr="Bee's knees & toes">)
+  end
 end
 
 CreateXml = <<HERE.gsub(/\n\s*/, '')

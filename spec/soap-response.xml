@@ -39,7 +39,7 @@
 	  <sf:AssistantName xsi:nil="true"/>
 	  <sf:LeadSource xsi:nil="true"/>
 	  <sf:Birthdate xsi:nil="true"/>
-	  <sf:Description xsi:nil="true"/>
+	  <sf:Description>Bee&apos;s knees</sf:Description>
 	  <sf:OwnerId>0000000000ABcDEFGH</sf:OwnerId>
 	  <sf:CreatedDate>2008-03-01T01:52:35.000Z</sf:CreatedDate>
 	  <sf:CreatedById>0000000000ABcDEFGH</sf:CreatedById>

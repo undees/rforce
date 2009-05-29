@@ -21,7 +21,11 @@ module RForce
     end
 
     def text(data)
-      @current_value = data.strip.empty? ? nil : data
+      adding = data.strip.empty? ? nil : data
+
+      if adding
+        @current_value = (@current_value || '') + adding
+      end
     end
 
     def tag_end(name)
