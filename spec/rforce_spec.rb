@@ -71,8 +71,12 @@ describe 'a SoapResponse implementation' do
 
   it 'understands XML entities' do
     expected = "Bee's knees"
-    @rexml_recs.first.Description.should   == expected
-    @expat_recs.first.Description.should   == expected
+    @rexml_recs.first.Description.should == expected
+
+    pending 'expat not installed' unless @expat_recs
+    @expat_recs.first.Description.should == expected
+
+    pending 'hpricot not installed' unless @hpricot
     @hpricot_recs.first.Description.should == expected
   end
 end
