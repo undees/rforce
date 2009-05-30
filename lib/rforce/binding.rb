@@ -84,10 +84,13 @@ module RForce
     # a hash or (if order is important) an array of alternating
     # keys and values.
     def call_remote(method, args)
+
+      urn, soap_url = block_given? ? yield : ["urn:partner.soap.sforce.com", @url.path]
+
       # Create XML text from the arguments.
       expanded = ''
       @builder = Builder::XmlMarkup.new(:target => expanded)
-      expand(@builder, {method => args}, 'urn:partner.soap.sforce.com')
+      expand(@builder, {method => args}, urn)
 
       extra_headers = ""
       extra_headers << (AssignmentRuleHeaderUsingRuleId % assignment_rule_id) if assignment_rule_id
@@ -128,7 +131,7 @@ module RForce
       end
 
       # Send the request to the server and read the response.
-      response = @server.post2(@url.path, request.lstrip, headers)
+      response = @server.post2(soap_url, request.lstrip, headers)
 
       # decode if we have encoding
       content = decode(response)
@@ -142,7 +145,7 @@ module RForce
         request = encode(request)
 
         # Send the request to the server and read the response.
-        response = @server.post2(@url.path, request.lstrip, headers)
+        response = @server.post2(soap_url, request.lstrip, headers)
 
         content = decode(response)
       end
