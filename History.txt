@@ -1,19 +1,24 @@
-== 0.1.0 2005-09-02
+== 0.4 2010-01-21
 
-* 1 major enhancement:
-  * Initial release
+* 1 minor enhancement:
+  * Moved RubyGems dependencies into the gemspec where they belong
 
-== 0.2.0 2008-07-03
+== 0.3 2009-04-16
 
-* 1 major enhancement:
-  * Incorporated fixes from ActiveSalesforce project
+* 1 minor enhancement:
+  * Updated for Ruby 1.9
 
 == 0.2.1 2008-07-04
 
 * 1 minor enhancement:
   * Updated examples for SalesForce API v10
 
-== 0.3 2009-04-16
- 
-* 1 minor enhancement:
-  * Updated for Ruby 1.9
+== 0.2.0 2008-07-03
+
+* 1 major enhancement:
+  * Incorporated fixes from ActiveSalesforce project
+
+== 0.1.0 2005-09-02
+
+* 1 major enhancement:
+  * Initial release

@@ -5,6 +5,7 @@ Rakefile
 lib/rforce.rb
 lib/rforce/binding.rb
 lib/rforce/soap_pullable.rb
+lib/rforce/soap_response.rb
 lib/rforce/soap_response_expat.rb
 lib/rforce/soap_response_hpricot.rb
 lib/rforce/soap_response_rexml.rb
@@ -13,5 +14,4 @@ spec/rforce_spec.rb
 spec/soap-response.xml
 spec/spec.opts
 spec/spec_helper.rb
-tasks/rspec.rake
 tasks/timing.rake

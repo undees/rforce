@@ -1,3 +1,10 @@
+require 'net/https'
+require 'uri'
+require 'zlib'
+require 'stringio'
+require 'builder'
+
+
 module RForce
   # Implements the connection to the SalesForce server.
   class Binding

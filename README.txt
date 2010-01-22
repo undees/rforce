@@ -53,7 +53,7 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 
 == LICENSE:
 
-Copyright (c) 2005-2009 Ian Dees and contributors
+Copyright (c) 2005-2010 Ian Dees and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

@@ -1,3 +1,5 @@
+require 'facets/openhash'
+
 module RForce
   module SoapPullable
     SOAP_ENVELOPE = 'soapenv:Envelope'

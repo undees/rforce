@@ -1,5 +1,5 @@
 =begin
-Copyright (c) 2005-2009 Ian Dees and contributors
+Copyright (c) 2005-2010 Ian Dees and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,37 +46,10 @@ SOFTWARE.
 #    binding.create 'sObject {"xsi:type" => "Opportunity"}' => opportunity
 #
 
-
-require 'net/https'
-require 'uri'
-require 'zlib'
-require 'stringio'
-
-require 'rubygems'
-
-gem 'builder', '>= 2.0.0'
-require 'builder'
-
-gem 'facets', '>= 2.4'
-require 'facets/openhash'
-
 require 'rforce/binding'
-require 'rforce/soap_response_rexml'
-begin; require 'rforce/soap_response_hpricot'; rescue LoadError; end
-begin; require 'rforce/soap_response_expat'; rescue LoadError; end
-
+require 'rforce/soap_response'
 
 module RForce
-  # Use the fastest XML parser available.
-  def self.parser(name)
-      RForce.const_get(name) rescue nil
-  end
-
-  SoapResponse =
-    parser(:SoapResponseExpat) ||
-    parser(:SoapResponseHpricot) ||
-    SoapResponseRexml
-
   # Expand Ruby data structures into XML.
   def expand(builder, args, xmlns = nil)
     # Nest arrays: [:a, 1, :b, 2] => [[:a, 1], [:b, 2]]
@@ -111,5 +84,4 @@ module RForce
       end
     end
   end
-
 end
