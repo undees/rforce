@@ -1,4 +1,4 @@
-require 'facets/openhash'
+require 'rforce/method_keys'
 
 module RForce
   module SoapPullable
@@ -19,7 +19,7 @@ module RForce
         return
       end
 
-      @stack.push OpenHash.new({})
+      @stack.push(MethodHash.new)
     end
 
     def text(data)

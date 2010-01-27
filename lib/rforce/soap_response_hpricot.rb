@@ -37,7 +37,7 @@ module RForce
       end
 
       # Convert nodes with children into MethodHashes.
-      elements = OpenHash.new({})
+      elements = MethodHash.new
 
       # Add all the element's children to the hash.
       children.each do |e|

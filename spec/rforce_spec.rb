@@ -1,5 +1,25 @@
 require 'spec_helper'
 
+describe MethodKeys do
+  it 'lets you access hash keys with methods' do
+    h = {:foo => :bar}
+    class << h; include MethodKeys; end
+
+    h.foo.should == :bar
+    h.nonexistent.should be_nil
+  end
+  
+  it 'provides a Hash-like class' do
+    mh = MethodHash.new
+    mh[:one] = 1
+    mh[:ten] = 10
+
+    mh.one.should == 1
+    mh.ten.should == 10
+    mh.nothing.should be_nil
+  end
+end
+
 describe 'expand' do
   it 'turns Ruby into XML' do
     xmlns = 'urn:partner.soap.sforce.com'
@@ -35,7 +55,7 @@ describe 'a SoapResponse implementation' do
 
       results = begin
         klass = RForce.const_get name
-        klass.new(@contents).parse.queryResponse.result.records
+        klass.new(@contents).parse.queryResponse[:result][:records]
       rescue NameError
         nil
       end

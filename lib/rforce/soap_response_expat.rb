@@ -4,6 +4,7 @@ require 'rforce/soap_pullable'
 module RForce
   class SoapResponseExpat
     include SoapPullable
+    include MethodKeys
 
     def initialize(content)
       @content = content
@@ -12,7 +13,7 @@ module RForce
     def parse
       @current_value = nil
       @stack = []
-      @parsed = OpenHash.new({})
+      @parsed = {}
       @done = false
       @namespaces = []
 
