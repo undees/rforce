@@ -9,9 +9,9 @@ module RForce
   # Implements the connection to the SalesForce server.
   class Binding
     include RForce
-    
+
     DEFAULT_BATCH_SIZE = 10
-    attr_accessor :batch_size, :url, :assignment_rule_id, :use_default_rule, :update_mru, :client_id, :trigger_user_email, 
+    attr_accessor :batch_size, :url, :assignment_rule_id, :use_default_rule, :update_mru, :client_id, :trigger_user_email,
       :trigger_other_email, :trigger_auto_response_email
 
     # Fill in the guts of this typical SOAP envelope
@@ -75,7 +75,7 @@ module RForce
       @password = password
 
       response = call_remote(:login, [:username, user, :password, password])
-      
+
       raise "Incorrect user name / password [#{response.fault}]" unless response.loginResponse
 
       result = response[:loginResponse][:result]
@@ -104,21 +104,21 @@ module RForce
       extra_headers << AssignmentRuleHeaderUsingDefaultRule if use_default_rule
       extra_headers << MruHeader if update_mru
       extra_headers << (ClientIdHeader % client_id) if client_id
-      
+
       if trigger_user_email or trigger_other_email or trigger_auto_response_email
         extra_headers << '<partner:EmailHeader soap:mustUnderstand="1">'
-        
+
         extra_headers << '<partner:triggerUserEmail>true</partner:triggerUserEmail>' if trigger_user_email
         extra_headers << '<partner:triggerOtherEmail>true</partner:triggerOtherEmail>' if trigger_other_email
         extra_headers << '<partner:triggerAutoResponseEmail>true</partner:triggerAutoResponseEmail>' if trigger_auto_response_email
-        
+
         extra_headers << '</partner:EmailHeader>'
       end
 
       # Fill in the blanks of the SOAP envelope with our
       # session ID and the expanded XML of our request.
       request = (Envelope % [@session_id, @batch_size, extra_headers, expanded])
-      
+
       # reset the batch size for the next request
       @batch_size = DEFAULT_BATCH_SIZE
 
