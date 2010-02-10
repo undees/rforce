@@ -2,8 +2,9 @@ require 'net/https'
 require 'uri'
 require 'zlib'
 require 'stringio'
+require 'rexml/document'
 require 'builder'
-
+require 'oauth'
 
 module RForce
   # Implements the connection to the SalesForce server.
@@ -43,12 +44,15 @@ module RForce
     MruHeader = '<partner:MruHeader soap:mustUnderstand="1"><partner:updateMru>true</partner:updateMru></partner:MruHeader>'
     ClientIdHeader = '<partner:CallOptions soap:mustUnderstand="1"><partner:client>%s</partner:client></partner:CallOptions>'
 
-    # Connect to the server securely.
-    def initialize(url, sid = nil)
-      init_server(url)
-
+    # Connect to the server securely.  If you pass an oauth hash, it
+    # must contain the keys :consumer_key, :consumer_secret,
+    # :access_token, :access_secret, and :login_url.
+    def initialize(url, sid = nil, oauth = nil)
       @session_id = sid
+      @oauth = oauth
       @batch_size = DEFAULT_BATCH_SIZE
+
+      init_server(url)
     end
 
 
@@ -59,17 +63,34 @@ module RForce
 
     def init_server(url)
       @url = URI.parse(url)
-      @server = Net::HTTP.new(@url.host, @url.port)
-      @server.use_ssl = @url.scheme == 'https'
-      @server.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-      # run ruby with -d or env variable SHOWSOAP=true to see SOAP wiredumps.
-      @server.set_debug_output $stderr if show_debug
+      if (@oauth)
+        consumer = OAuth::Consumer.new \
+          @oauth[:consumer_key],
+          @oauth[:consumer_secret],
+          { :site => url }
+
+        @server  = OAuth::AccessToken.new \
+          consumer,
+          @oauth[:access_token],
+          @oauth[:access_secret]
+
+        class << @server
+          alias_method :post2, :post
+        end
+      else
+        @server = Net::HTTP.new(@url.host, @url.port)
+        @server.use_ssl = @url.scheme == 'https'
+        @server.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+        # run ruby with -d or env variable SHOWSOAP=true to see SOAP wiredumps.
+        @server.set_debug_output $stderr if show_debug
+      end
     end
 
 
-    # Log in to the server and remember the session ID
-    # returned to us by SalesForce.
+    # Log in to the server with a user name and password, remembering
+    # the session ID returned to us by SalesForce.
     def login(user, password)
       @user = user
       @password = password
@@ -86,6 +107,25 @@ module RForce
       response
     end
 
+    # Log in to the server with OAuth, remembering
+    # the session ID returned to us by SalesForce.
+    def login_with_oauth
+      result = @server.post @oauth[:login_url], '', {}
+
+      case result
+      when Net::HTTPSuccess
+        doc = REXML::Document.new result.body
+        @session_id = doc.elements['*/sessionId'].first.to_s
+        server_url  = doc.elements['*/serverUrl'].first.to_s
+        init_server server_url
+
+        return {:sessionId => @sessionId, :serverUrl => server_url}
+      when Net::HTTPUnauthorized
+        raise 'Invalid OAuth tokens'
+      else
+        raise 'Unexpected error: #{response.inspect}'
+      end
+    end
 
     # Call a method on the remote server.  Arguments can be
     # a hash or (if order is important) an array of alternating
