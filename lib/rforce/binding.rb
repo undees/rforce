@@ -115,8 +115,8 @@ module RForce
       case result
       when Net::HTTPSuccess
         doc = REXML::Document.new result.body
-        @session_id = doc.elements['*/sessionId'].first.to_s
-        server_url  = doc.elements['*/serverUrl'].first.to_s
+        @session_id = doc.elements['*/sessionId'].text
+        server_url  = doc.elements['*/serverUrl'].text
         init_server server_url
 
         return {:sessionId => @sessionId, :serverUrl => server_url}
@@ -249,4 +249,3 @@ module RForce
     end
   end
 end
-
