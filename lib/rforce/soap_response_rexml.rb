@@ -17,7 +17,7 @@ module RForce
     def initialize(content)
       @content = content
     end
-    
+
     # Parses an XML string into structured data.
     def parse
       @current_value = nil
@@ -27,7 +27,7 @@ module RForce
       @namespaces = []
 
       REXML::Document.parse_stream @content, self
-      
+
       @parsed
     end
   end
