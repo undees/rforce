@@ -70,6 +70,8 @@ module RForce
           @oauth[:consumer_secret],
           { :site => url }
 
+        consumer.http.set_debug_output $stderr if show_debug
+
         @server  = OAuth::AccessToken.new \
           consumer,
           @oauth[:access_token],
