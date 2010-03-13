@@ -1,6 +1,11 @@
 == 0.4 2010-01-21
 
 * 1 minor enhancement:
+  * Fixed bug in search for XML libraries
+
+== 0.4 2010-01-21
+
+* 1 minor enhancement:
   * Moved RubyGems dependencies into the gemspec where they belong
 
 == 0.3 2009-04-16
