@@ -2,16 +2,17 @@ require 'net/https'
 require 'uri'
 require 'zlib'
 require 'stringio'
+require 'rexml/document'
 require 'builder'
-
+require 'oauth'
 
 module RForce
   # Implements the connection to the SalesForce server.
   class Binding
     include RForce
-    
+
     DEFAULT_BATCH_SIZE = 10
-    attr_accessor :batch_size, :url, :assignment_rule_id, :use_default_rule, :update_mru, :client_id, :trigger_user_email, 
+    attr_accessor :batch_size, :url, :assignment_rule_id, :use_default_rule, :update_mru, :client_id, :trigger_user_email,
       :trigger_other_email, :trigger_auto_response_email
 
     # Fill in the guts of this typical SOAP envelope
@@ -43,12 +44,15 @@ module RForce
     MruHeader = '<partner:MruHeader soap:mustUnderstand="1"><partner:updateMru>true</partner:updateMru></partner:MruHeader>'
     ClientIdHeader = '<partner:CallOptions soap:mustUnderstand="1"><partner:client>%s</partner:client></partner:CallOptions>'
 
-    # Connect to the server securely.
-    def initialize(url, sid = nil)
-      init_server(url)
-
+    # Connect to the server securely.  If you pass an oauth hash, it
+    # must contain the keys :consumer_key, :consumer_secret,
+    # :access_token, :access_secret, and :login_url.
+    def initialize(url, sid = nil, oauth = nil)
       @session_id = sid
+      @oauth = oauth
       @batch_size = DEFAULT_BATCH_SIZE
+
+      init_server(url)
     end
 
 
@@ -59,23 +63,42 @@ module RForce
 
     def init_server(url)
       @url = URI.parse(url)
-      @server = Net::HTTP.new(@url.host, @url.port)
-      @server.use_ssl = @url.scheme == 'https'
-      @server.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-      # run ruby with -d or env variable SHOWSOAP=true to see SOAP wiredumps.
-      @server.set_debug_output $stderr if show_debug
+      if (@oauth)
+        consumer = OAuth::Consumer.new \
+          @oauth[:consumer_key],
+          @oauth[:consumer_secret],
+          { :site => url }
+
+        consumer.http.set_debug_output $stderr if show_debug
+
+        @server  = OAuth::AccessToken.new \
+          consumer,
+          @oauth[:access_token],
+          @oauth[:access_secret]
+
+        class << @server
+          alias_method :post2, :post
+        end
+      else
+        @server = Net::HTTP.new(@url.host, @url.port)
+        @server.use_ssl = @url.scheme == 'https'
+        @server.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+        # run ruby with -d or env variable SHOWSOAP=true to see SOAP wiredumps.
+        @server.set_debug_output $stderr if show_debug
+      end
     end
 
 
-    # Log in to the server and remember the session ID
-    # returned to us by SalesForce.
+    # Log in to the server with a user name and password, remembering
+    # the session ID returned to us by SalesForce.
     def login(user, password)
       @user = user
       @password = password
 
       response = call_remote(:login, [:username, user, :password, password])
-      
+
       raise "Incorrect user name / password [#{response.fault}]" unless response.loginResponse
 
       result = response[:loginResponse][:result]
@@ -86,6 +109,25 @@ module RForce
       response
     end
 
+    # Log in to the server with OAuth, remembering
+    # the session ID returned to us by SalesForce.
+    def login_with_oauth
+      result = @server.post @oauth[:login_url], '', {}
+
+      case result
+      when Net::HTTPSuccess
+        doc = REXML::Document.new result.body
+        @session_id = doc.elements['*/sessionId'].text
+        server_url  = doc.elements['*/serverUrl'].text
+        init_server server_url
+
+        return {:sessionId => @sessionId, :serverUrl => server_url}
+      when Net::HTTPUnauthorized
+        raise 'Invalid OAuth tokens'
+      else
+        raise 'Unexpected error: #{response.inspect}'
+      end
+    end
 
     # Call a method on the remote server.  Arguments can be
     # a hash or (if order is important) an array of alternating
@@ -104,21 +146,21 @@ module RForce
       extra_headers << AssignmentRuleHeaderUsingDefaultRule if use_default_rule
       extra_headers << MruHeader if update_mru
       extra_headers << (ClientIdHeader % client_id) if client_id
-      
+
       if trigger_user_email or trigger_other_email or trigger_auto_response_email
         extra_headers << '<partner:EmailHeader soap:mustUnderstand="1">'
-        
+
         extra_headers << '<partner:triggerUserEmail>true</partner:triggerUserEmail>' if trigger_user_email
         extra_headers << '<partner:triggerOtherEmail>true</partner:triggerOtherEmail>' if trigger_other_email
         extra_headers << '<partner:triggerAutoResponseEmail>true</partner:triggerAutoResponseEmail>' if trigger_auto_response_email
-        
+
         extra_headers << '</partner:EmailHeader>'
       end
 
       # Fill in the blanks of the SOAP envelope with our
       # session ID and the expanded XML of our request.
       request = (Envelope % [@session_id, @batch_size, extra_headers, expanded])
-      
+
       # reset the batch size for the next request
       @batch_size = DEFAULT_BATCH_SIZE
 
@@ -209,4 +251,3 @@ module RForce
     end
   end
 end
-
