@@ -11,7 +11,9 @@ module RForce
   class Binding
     include RForce
 
-    DEFAULT_BATCH_SIZE = 10
+    # Increase the maximum fetch size to 2000, as allowed by Salesforce
+    # Added by Raymond Gao
+    DEFAULT_BATCH_SIZE = 2000
     attr_accessor :batch_size, :url, :assignment_rule_id, :use_default_rule, :update_mru, :client_id, :trigger_user_email,
       :trigger_other_email, :trigger_auto_response_email
 
