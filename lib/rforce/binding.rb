@@ -127,7 +127,7 @@ module RForce
       when Net::HTTPUnauthorized
         raise 'Invalid OAuth tokens'
       else
-        raise 'Unexpected error: #{response.inspect}'
+        raise "Unexpected error: #{response.inspect}"
       end
     end
 
