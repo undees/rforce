@@ -1,3 +1,14 @@
+== 0.5.1 2010-12-11
+
+* 2 minor enhancements:
+  * Increase batch size (Raymond Gao)
+  * Removed Facets dependency (Justin Ramos, Aaron Qian)
+
+== 0.4.1 2010-03-21
+
+* 1 minor enhancement:
+  * Experimental OAuth support
+
 == 0.4 2010-01-21
 
 * 1 minor enhancement:
