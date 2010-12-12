@@ -96,7 +96,7 @@ describe 'a SoapResponse implementation' do
     pending 'expat not installed' unless @expat_recs
     @expat_recs.first.Description.should == expected
 
-    pending 'hpricot not installed' unless @hpricot
+    pending 'hpricot not installed' unless @hpricot_recs
     @hpricot_recs.first.Description.should == expected
   end
 end
