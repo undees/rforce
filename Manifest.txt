@@ -4,6 +4,7 @@ README.txt
 Rakefile
 lib/rforce.rb
 lib/rforce/binding.rb
+lib/rforce/method_keys.rb
 lib/rforce/soap_pullable.rb
 lib/rforce/soap_response.rb
 lib/rforce/soap_response_expat.rb
