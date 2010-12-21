@@ -1,4 +1,10 @@
-== 0.5.1 2010-12-11
+== 0.5.1 2010-12-21
+
+* 2 minor enhancements
+  * Added missing file to manifest (reported by Tyler Jennings)
+  * Added dependency on OAuth gem
+
+== 0.5.0 2010-12-11
 
 * 2 minor enhancements:
   * Increase batch size (Raymond Gao)
