@@ -26,22 +26,22 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
       'find {McFakerson Co} in name fields returning account(id)'
 
   account = answer.searchResponse.result.searchRecords.record
-  account = account.first if account.is_a? Array  
+  account = account.first if account.is_a? Array
 
   account_id = account.Id
   account_id = account_id.first if account_id.is_a? Array
 
   opportunity = [
-                 :type, 'Opportunity',
+                 :type,      'Opportunity',
                  :accountId, account_id,
-                 :amount, '10.00',
-                 :name, 'Fakey McFakerson',
+                 :amount,    '10.00',
+                 :name,      'Fakey McFakerson',
                  :closeDate, '2008-07-04',
                  :stageName, 'Closed Won'
                 ]
 
   binding.create :sObject => opportunity
-  
+
 == REQUIREMENTS:
 
 * Builder gem
@@ -49,7 +49,7 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 
 == INSTALL:
 
-* sudo gem install rforce
+* gem install rforce
 
 == LICENSE:
 
