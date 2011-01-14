@@ -121,6 +121,7 @@ describe 'SoapResponseNokogiri' do
   </soapnenv:Body>
 </soapenv:Envelope>
 XML
+
     SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => "Bin"}}
   end
 
@@ -135,8 +136,8 @@ XML
     </foo>
   </soapnenv:Body>
 </soapenv:Envelope>
-
 XML
+
     SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
   end
 
@@ -151,9 +152,25 @@ XML
     </foo>
   </soapnenv:Body>
 </soapenv:Envelope>
-
 XML
+
    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}} 
+  end
+
+  it 'unescapes any HTML contained in text nodes' do
+    xml = <<-XML
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
+  <soapenv:Body>
+    <soapenv:foo>
+      <bar>Bin</bar>
+      <bar>this is &lt;strong&gt;awesome&lt;/strong&gt;!</bar>
+    </foo>
+  </soapnenv:Body>
+</soapenv:Envelope>
+XML
+
+    SoapResponseNokogiri.new(xml).parse()[:foo][:bar].last.should == "this is <strong>awesome</strong>!"
   end
 end
 
