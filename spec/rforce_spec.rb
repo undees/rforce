@@ -49,7 +49,7 @@ describe 'a SoapResponse implementation' do
     fname = File.join(File.dirname(__FILE__), 'soap-response.xml')
     @contents = File.open(fname) {|f| f.read}
 
-    [:rexml, :expat, :hpricot].each do |processor|
+    [:rexml, :expat, :hpricot, :nokogiri].each do |processor|
       name = "SoapResponse#{processor.to_s.capitalize}"
       variable = "@#{processor}_recs"
 
@@ -106,6 +106,54 @@ describe 'SoapResponseHpricot' do
     text = '&lt;tag attr=&quot;Bee&apos;s knees &amp; toes&quot;&gt;'
     SoapResponseHpricot.unescapeXML(text).should ==
       %q(<tag attr="Bee's knees & toes">)
+  end
+end
+
+describe 'SoapResponseNokogiri' do
+  it 'parses nested elements into nested hashes' do
+    xml = <<-XML
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
+  <soapenv:Body>
+    <foo>
+      <bar>Bin</bar>
+    </foo>
+  </soapnenv:Body>
+</soapenv:Envelope>
+XML
+    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => "Bin"}}
+  end
+
+  it 'parses repeated elements into arrays' do
+    xml = <<-XML
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
+  <soapenv:Body>
+    <foo>
+      <bar>Bin</bar>
+      <bar>Bash</bar>
+    </foo>
+  </soapnenv:Body>
+</soapenv:Envelope>
+
+XML
+    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
+  end
+
+  it 'disregards namespacing when determining hash keys' do
+    xml = <<-XML
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
+  <soapenv:Body>
+    <soapenv:foo>
+      <bar>Bin</bar>
+      <soapenv:bar>Bash</bar>
+    </foo>
+  </soapnenv:Body>
+</soapenv:Envelope>
+
+XML
+   SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}} 
   end
 end
 

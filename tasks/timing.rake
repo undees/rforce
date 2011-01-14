@@ -7,7 +7,8 @@ task :timing do
 
   [:SoapResponseRexml,
    :SoapResponseExpat,
-   :SoapResponseHpricot].each do |name|
+   :SoapResponseHpricot,
+   :SoapResponseNokogiri].each do |name|
     begin
       klass = RForce.const_get name
       started_at = Time.now
@@ -15,6 +16,7 @@ task :timing do
       elapsed = Time.now - started_at
       puts "#{klass}: #{elapsed}"
     rescue NameError
+      puts $!
       # no-op
     end
   end
