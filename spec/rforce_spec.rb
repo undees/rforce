@@ -160,6 +160,12 @@ XML
 
     SoapResponseNokogiri.new(xml).parse()[:foo][:bar].last.should == %q(<tag attr="Bee's knees & toes">)
   end
+
+  it 'returns an object that can be navigated via methods in addition to keys' do
+    xml = wrap_in_salesforce_envelope("<foo><bar><bin>bash</bin></bar></foo>")
+    SoapResponseNokogiri.new(xml).parse().foo.bar.bin.should == "bash"
+  end
+
 end
 
 CreateXml = <<HERE.gsub(/\n\s*/, '')
