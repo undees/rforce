@@ -10,9 +10,12 @@ Hoe.spec 'rforce' do
   
   self.extra_deps << ['builder', '~> 2.0']
   self.extra_deps << ['oauth', '~> 0.4']
+
   self.extra_dev_deps << ['rspec', '~> 1.3']
+
   self.rdoc_locations = ['undees@rforce.rubyforge.org:/var/www/gforge-projects/rforce']
   self.remote_rdoc_dir = ''
+
   self.rspec_options = ['-rubygems', '--options', 'spec/spec.opts']
 end
 
