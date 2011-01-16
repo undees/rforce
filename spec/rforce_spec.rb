@@ -110,67 +110,55 @@ describe 'SoapResponseHpricot' do
 end
 
 describe 'SoapResponseNokogiri' do
-  it 'parses nested elements into nested hashes' do
-    xml = <<-XML
+    SOAP_WRAPPER = <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
   <soapenv:Body>
-    <foo>
-      <bar>Bin</bar>
-    </foo>
+    %s
   </soapnenv:Body>
 </soapenv:Envelope>
 XML
+  def wrap_in_salesforce_envelope(xml)
+    SOAP_WRAPPER % xml
+  end
 
+  it 'parses nested elements into nested hashes' do
+    xml = wrap_in_salesforce_envelope("""
+    <foo>
+      <bar>Bin</bar>
+    </foo>""")
+    
     SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => "Bin"}}
   end
 
   it 'parses repeated elements into arrays' do
-    xml = <<-XML
-<?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
-  <soapenv:Body>
+    xml = wrap_in_salesforce_envelope("""
     <foo>
       <bar>Bin</bar>
       <bar>Bash</bar>
-    </foo>
-  </soapnenv:Body>
-</soapenv:Envelope>
-XML
+    </foo>""")
 
     SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
   end
 
   it 'disregards namespacing when determining hash keys' do
-    xml = <<-XML
-<?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
-  <soapenv:Body>
+    xml = wrap_in_salesforce_envelope("""
     <soapenv:foo>
       <bar>Bin</bar>
       <soapenv:bar>Bash</bar>
-    </foo>
-  </soapnenv:Body>
-</soapenv:Envelope>
-XML
+    </foo>""")
 
    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}} 
   end
 
   it 'unescapes any HTML contained in text nodes' do
-    xml = <<-XML
-<?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
-  <soapenv:Body>
+    xml = wrap_in_salesforce_envelope("""
     <soapenv:foo>
       <bar>Bin</bar>
-      <bar>this is &lt;strong&gt;awesome&lt;/strong&gt;!</bar>
-    </foo>
-  </soapnenv:Body>
-</soapenv:Envelope>
-XML
+      <bar>&lt;tag attr=&quot;Bee&apos;s knees &amp; toes&quot;&gt;</bar>
+    </foo>""")
 
-    SoapResponseNokogiri.new(xml).parse()[:foo][:bar].last.should == "this is <strong>awesome</strong>!"
+    SoapResponseNokogiri.new(xml).parse()[:foo][:bar].last.should == %q(<tag attr="Bee's knees & toes">)
   end
 end
 
