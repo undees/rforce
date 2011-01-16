@@ -1,4 +1,7 @@
 # -*- ruby -*-
+
+$:.unshift './lib'
+
 require 'rubygems'
 gem 'hoe', '>= 2.1.0'
 require 'hoe'
@@ -16,5 +19,7 @@ Hoe.spec 'rforce' do
 
   self.rspec_options = ['-rubygems', '--options', 'spec/spec.opts']
 end
+
+Dir['tasks/**/*.rake'].each { |rake| load rake }
 
 # vim: syntax=Ruby
