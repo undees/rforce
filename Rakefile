@@ -3,8 +3,6 @@ require 'rubygems'
 gem 'hoe', '>= 2.1.0'
 require 'hoe'
 
-Hoe.plugin :gemspec # `gem install hoe-gemspec`
-
 Hoe.spec 'rforce' do
   developer('Ian Dees', 'undees@gmail.com')
   
