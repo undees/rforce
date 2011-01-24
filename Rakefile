@@ -3,12 +3,12 @@
 $:.unshift './lib'
 
 require 'rubygems'
-gem 'hoe', '>= 2.1.0'
+gem 'hoe', '~> 2.8'
 require 'hoe'
 
 Hoe.spec 'rforce' do
   developer('Ian Dees', 'undees@gmail.com')
-  
+
   self.extra_deps << ['builder', '~> 2.0']
   self.extra_deps << ['oauth', '~> 0.4']
 
