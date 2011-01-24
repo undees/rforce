@@ -26,17 +26,20 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<builder>, ["~> 3.0"])
       s.add_runtime_dependency(%q<oauth>, ["~> 0.4"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3"])
+      s.add_development_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
       s.add_development_dependency(%q<hoe>, [">= 2.8.0"])
     else
       s.add_dependency(%q<builder>, ["~> 3.0"])
       s.add_dependency(%q<oauth>, ["~> 0.4"])
       s.add_dependency(%q<rspec>, ["~> 1.3"])
+      s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
       s.add_dependency(%q<hoe>, [">= 2.8.0"])
     end
   else
     s.add_dependency(%q<builder>, ["~> 3.0"])
     s.add_dependency(%q<oauth>, ["~> 0.4"])
     s.add_dependency(%q<rspec>, ["~> 1.3"])
+    s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
     s.add_dependency(%q<hoe>, [">= 2.8.0"])
   end
 end

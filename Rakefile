@@ -6,6 +6,8 @@ require 'rubygems'
 gem 'hoe', '~> 2.8'
 require 'hoe'
 
+Hoe.plugin :gemspec2
+
 Hoe.spec 'rforce' do
   developer('Ian Dees', 'undees@gmail.com')
 
@@ -13,6 +15,7 @@ Hoe.spec 'rforce' do
   self.extra_deps << ['oauth', '~> 0.4']
 
   self.extra_dev_deps << ['rspec', '~> 1.3']
+  self.extra_dev_deps << ['hoe-gemspec2', '~> 1.1']
 
   self.rdoc_locations = ['undees@rforce.rubyforge.org:/var/www/gforge-projects/rforce']
   self.remote_rdoc_dir = ''
