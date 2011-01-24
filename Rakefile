@@ -9,7 +9,7 @@ require 'hoe'
 Hoe.spec 'rforce' do
   developer('Ian Dees', 'undees@gmail.com')
 
-  self.extra_deps << ['builder', '~> 2.0']
+  self.extra_deps << ['builder', '~> 3.0']
   self.extra_deps << ['oauth', '~> 0.4']
 
   self.extra_dev_deps << ['rspec', '~> 1.3']
