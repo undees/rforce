@@ -8,7 +8,7 @@ describe MethodKeys do
     h.foo.should == :bar
     h.nonexistent.should be_nil
   end
-  
+
   it 'provides a Hash-like class' do
     mh = MethodHash.new
     mh[:one] = 1
@@ -127,7 +127,7 @@ XML
     <foo>
       <bar>Bin</bar>
     </foo>""")
-    
+
     SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => "Bin"}}
   end
 
@@ -148,7 +148,7 @@ XML
       <soapenv:bar>Bash</bar>
     </foo>""")
 
-   SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}} 
+   SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
   end
 
   it 'unescapes any HTML contained in text nodes' do

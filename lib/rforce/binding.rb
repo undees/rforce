@@ -7,7 +7,7 @@ require 'builder'
 require 'oauth'
 
 module RForce
-  # Implements the connection to the SalesForce server.
+  # Implements the connection to the Salesforce server.
   class Binding
     include RForce
 
@@ -94,7 +94,7 @@ module RForce
 
 
     # Log in to the server with a user name and password, remembering
-    # the session ID returned to us by SalesForce.
+    # the session ID returned to us by Salesforce.
     def login(user, password)
       @user = user
       @password = password
@@ -112,7 +112,7 @@ module RForce
     end
 
     # Log in to the server with OAuth, remembering
-    # the session ID returned to us by SalesForce.
+    # the session ID returned to us by Salesforce.
     def login_with_oauth
       result = @server.post \
         @oauth[:login_url],

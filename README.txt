@@ -7,7 +7,7 @@
 
 == DESCRIPTION:
 
-RForce is a simple, usable binding to the SalesForce API.
+RForce is a simple, usable binding to the Salesforce API.
 
 == FEATURES/PROBLEMS:
 
@@ -44,8 +44,8 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 
 == REQUIREMENTS:
 
-* Builder gem
-* A SalesForce Enterprise or Developer account
+* +builder+ and +oauth+ gems
+* A Salesforce Enterprise or Developer account
 
 == INSTALL:
 

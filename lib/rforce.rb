@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 =end
 
-#  RForce is a simple Ruby binding to the SalesForce CRM system.
+#  RForce is a simple Ruby binding to the Salesforce CRM system.
 #  Rather than enforcing adherence to the sforce.com schema,
 #  RForce assumes you are familiar with the API.  Ruby method names
 #  become SOAP method names.  Nested Ruby hashes become nested
