@@ -5,6 +5,7 @@ $:.unshift './lib'
 require 'rubygems'
 gem 'hoe', '~> 2.8'
 require 'hoe'
+require 'hoe/gemspec2'
 
 Hoe.plugin :gemspec2
 
