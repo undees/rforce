@@ -114,7 +114,10 @@ module RForce
     # Log in to the server with OAuth, remembering
     # the session ID returned to us by SalesForce.
     def login_with_oauth
-      result = @server.post @oauth[:login_url], '', {}
+      result = @server.post \
+        @oauth[:login_url],
+        '',
+        {'content-type' => 'application/x-www-form-urlencoded'}
 
       case result
       when Net::HTTPSuccess
