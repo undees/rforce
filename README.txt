@@ -18,7 +18,7 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 === Logging in with a user name and password
 
   binding = RForce::Binding.new \
-    'https://www.salesforce.com/services/Soap/u/10.0'
+    'https://www.salesforce.com/services/Soap/u/20.0'
 
   binding.login \
     'email', 'password_with_token'
