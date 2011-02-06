@@ -9,17 +9,38 @@
 
 RForce is a simple, usable binding to the Salesforce API.
 
-== FEATURES/PROBLEMS:
+== FEATURES:
 
 Rather than enforcing adherence to the sforce.com schema, RForce assumes you are familiar with the API. Ruby method names become SOAP method names. Nested Ruby hashes become nested XML elements.
 
 == SYNOPSIS:
+
+=== Logging in with a user name and password
 
   binding = RForce::Binding.new \
     'https://www.salesforce.com/services/Soap/u/10.0'
 
   binding.login \
     'email', 'password_with_token'
+
+=== Logging in with OAuth
+
+  oauth = {
+    :consumer_key    => '...', # Tokens obtained from Salesforce
+    :consumer_secret => '...',
+    :access_token    => '...',
+    :access_secret   => '...',
+    :login_url       => 'https://login.salesforce.com/services/OAuth/u/20.0'
+  }
+
+  binding = RForce::Binding.new \
+    'https://www.salesforce.com/services/Soap/u/20.0',
+    nil,
+    oauth
+
+  binding.login_with_oauth
+
+=== Finding a record
 
   answer = binding.search \
     :searchString =>
@@ -30,6 +51,8 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 
   account_id = account.Id
   account_id = account_id.first if account_id.is_a? Array
+
+=== Creating a record
 
   opportunity = [
                  :type,      'Opportunity',
@@ -53,7 +76,7 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 
 == LICENSE:
 
-Copyright (c) 2005-2010 Ian Dees and contributors
+Copyright (c) 2005-2011 Ian Dees and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

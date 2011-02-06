@@ -1,3 +1,13 @@
+== 0.7 2011-02-05
+
+* 1 minor enhancement
+  * Update OAuth login to keep up with Salesforce (Aaron Qian)
+
+== 0.6 2011-01-18
+
+* 1 major enhancement
+  * Added Nokogiri support (Rob Rasmussen)
+
 == 0.5.1 2010-12-21
 
 * 2 minor enhancements
