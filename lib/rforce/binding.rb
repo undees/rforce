@@ -24,7 +24,7 @@ module RForce
 <soap:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:partner="urn:partner.soap.sforce.com">
+    xmlns:partner="urn:partner.soap.sforce.com"
     xmlns:spartner="urn:sobject.partner.soap.sforce.com">
   <soap:Header>
     <partner:SessionHeader soap:mustUnderstand='1'>
