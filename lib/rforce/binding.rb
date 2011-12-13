@@ -106,7 +106,7 @@ module RForce
     def login(user, password)
       response = connect(user, password)
 
-      raise "Incorrect user name / password [#{response.fault}]" unless response.loginResponse
+      raise "Incorrect user name / password [#{response.Fault}]" unless response.loginResponse
 
       result = response[:loginResponse][:result]
       @session_id = result[:sessionId]
