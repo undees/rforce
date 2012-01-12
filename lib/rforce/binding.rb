@@ -92,14 +92,19 @@ module RForce
       end
     end
 
+    #  Connect to remote server
+    #
+    def connect(user, password)
+      @user = user
+      @password = password
+
+      call_remote(:login, [:username, user, :password, password])
+    end
 
     # Log in to the server with a user name and password, remembering
     # the session ID returned to us by Salesforce.
     def login(user, password)
-      @user = user
-      @password = password
-
-      response = call_remote(:login, [:username, user, :password, password])
+      response = connect(user, password)
 
       raise "Incorrect user name / password [#{response.Fault}]" unless response.loginResponse
 
