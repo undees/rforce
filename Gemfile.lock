@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rforce (0.7)
+    rforce (0.8)
       builder (~> 3.0)
       oauth (~> 0.4)
 
@@ -14,8 +14,11 @@ GEM
       rake (~> 0.8)
     hoe-gemspec2 (1.1.0)
       hoe
+    json (1.6.3)
     oauth (0.4.5)
     rake (0.9.2.2)
+    rdoc (3.12)
+      json (~> 1.4)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
       rspec-expectations (~> 2.8.0)
@@ -29,7 +32,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  hoe (>= 2.12)
+  hoe (~> 2.13)
   hoe-gemspec2 (~> 1.1)
+  rdoc (~> 3.10)
   rforce!
   rspec (~> 2.8)
