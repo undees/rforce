@@ -2,8 +2,6 @@
 
 $:.unshift './lib'
 
-require 'rubygems'
-gem 'hoe', '~> 2.12'
 require 'hoe'
 require 'hoe/gemspec2'
 
