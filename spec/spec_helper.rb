@@ -18,12 +18,12 @@ module RForceXmlMatchers
 
       @expected.each_with_index do |exp_rec, index|
         act_rec = @actual[index]
-        
+
         # Only bother to look at the first <Id>
         # tag in a (presumably) duplicated set.
         act_id = first_id(act_rec[:Id])
         exp_id = first_id(exp_rec[:Id])
-        
+
         return false if different '<Id>', act_id, exp_id
         return false if different 'keys', act_rec.keys, exp_rec.keys
 
@@ -61,6 +61,6 @@ module RForceXmlMatchers
   end
 end
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.include(RForceXmlMatchers)
 end
