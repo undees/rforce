@@ -24,6 +24,8 @@ Hoe.spec 'rforce' do
   self.rspec_options = ['-rubygems', '--options', 'spec/spec.opts']
 end
 
+task :test => :spec
+
 Dir['tasks/**/*.rake'].each { |rake| load rake }
 
 # vim: syntax=Ruby
