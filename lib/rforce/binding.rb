@@ -49,9 +49,13 @@ module RForce
     # Connect to the server securely.  If you pass an oauth hash, it
     # must contain the keys :consumer_key, :consumer_secret,
     # :access_token, :access_secret, and :login_url.
-    def initialize(url, sid = nil, oauth = nil)
+    #
+    # proxy may be a URL of the form http://user:pass@example.com:port
+    #
+    def initialize(url, sid = nil, oauth = nil, proxy = nil)
       @session_id = sid
       @oauth = oauth
+      @proxy = proxy
       @batch_size = DEFAULT_BATCH_SIZE
 
       init_server(url)
@@ -70,7 +74,10 @@ module RForce
         consumer = OAuth::Consumer.new \
           @oauth[:consumer_key],
           @oauth[:consumer_secret],
-          { :site => url }
+          {
+            :site => url,
+            :proxy => @proxy
+          }
 
         consumer.http.set_debug_output $stderr if show_debug
 
@@ -83,7 +90,7 @@ module RForce
           alias_method :post2, :post
         end
       else
-        @server = Net::HTTP.new(@url.host, @url.port)
+        @server = Net::HTTP.Proxy(@proxy).new(@url.host, @url.port)
         @server.use_ssl = @url.scheme == 'https'
         @server.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
