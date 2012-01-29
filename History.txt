@@ -1,3 +1,20 @@
+== 0.8.1 2012-01-29
+* 1 minor enhancement
+  * Updated history file
+
+== 0.8 2012-01-29
+
+* 3 minor enhancements
+  * Modified RForce::Binding#method_missing to allow for no-arg API
+    calls (Brandon Tilley)
+  * Added a way to test logins without raising an exception (Leon
+    Lukashevsky)
+  * Added ability to use a proxy server
+* 2 bug fixes
+  * Fixed invalid XML in RForce::Binding::Envelope (Brandon Tilley)
+  * Changed response.fault to correct method response.Fault (Jason
+    Rogers)
+
 == 0.7 2011-02-05
 
 * 1 minor enhancement
