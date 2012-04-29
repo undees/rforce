@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rforce (0.8)
+    rforce (0.8.1)
       builder (~> 3.0)
       oauth (~> 0.4)
 
@@ -14,8 +14,10 @@ GEM
       rake (~> 0.8)
     hoe-gemspec2 (1.1.0)
       hoe
+    hpricot (0.8.6)
     json (1.6.3)
-    oauth (0.4.5)
+    nokogiri (1.5.2)
+    oauth (0.4.6)
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
@@ -34,6 +36,8 @@ PLATFORMS
 DEPENDENCIES
   hoe (~> 2.13)
   hoe-gemspec2 (~> 1.1)
+  hpricot (~> 0.8)
+  nokogiri (~> 1.5)
   rdoc (~> 3.10)
   rforce!
   rspec (~> 2.8)

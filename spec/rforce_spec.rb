@@ -141,6 +141,49 @@ XML
     SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
   end
 
+  it 'parses records with single record as an array' do
+    xml = wrap_in_salesforce_envelope("""
+    <records>
+      <sf:type>Contact</sf:type>
+    </records>""")
+
+    SoapResponseNokogiri.new(xml).parse.should == {:records => [{:type => "Contact"}]}
+  end
+
+  it 'parses records with multiple records as an array' do
+    xml = wrap_in_salesforce_envelope("""
+    <records>
+      <sf:type>Contact</sf:type>
+    </records>
+    <records>
+      <sf:type>Contact</sf:type>
+    </records>""")
+
+    SoapResponseNokogiri.new(xml).parse.should == {:records => [{:type => "Contact"}, {:type => "Contact"}]}
+  end
+
+  it 'parses Id array as single string' do
+    xml = wrap_in_salesforce_envelope("""
+    <foo>
+      <sf:Id>some_id</sf:Id>
+      <sf:Id>some_id</sf:Id>
+    </foo>""")
+
+    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:Id => "some_id"}}
+  end
+
+  it 'parses booleans and numbers' do
+    xml = wrap_in_salesforce_envelope("""
+    <foo>
+      <size>20</size>
+      <done>true</done>
+      <more>false</more>
+      <string>normal string</string>
+    </foo>""")
+
+    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:size => 20, :done => true, :more => false, :string => "normal string"}}
+  end
+
   it 'disregards namespacing when determining hash keys' do
     xml = wrap_in_salesforce_envelope("""
     <soapenv:foo>

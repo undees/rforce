@@ -15,6 +15,8 @@ Hoe.spec 'rforce' do
 
   self.extra_dev_deps << ['rspec', '~> 2.8']
   self.extra_dev_deps << ['hoe-gemspec2', '~> 1.1']
+  self.extra_dev_deps << ['hpricot', '~> 0.8']
+  self.extra_dev_deps << ['nokogiri', '~> 1.5']
 
   self.rdoc_locations = ['undees@rforce.rubyforge.org:/var/www/gforge-projects/rforce']
   self.remote_rdoc_dir = ''
