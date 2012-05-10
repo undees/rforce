@@ -75,7 +75,6 @@ describe 'a SoapResponse implementation' do
   end
 
   it 'returns the same results with hpricot' do
-    pending 'duplicate <Id> tags'
     @hpricot_recs.should == @rexml_recs
   end
 
