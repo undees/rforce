@@ -30,9 +30,6 @@ module RForce
     <partner:SessionHeader soap:mustUnderstand='1'>
       <partner:sessionId>%s</partner:sessionId>
     </partner:SessionHeader>
-    <partner:QueryOptions soap:mustUnderstand='1'>
-      <partner:batchSize>%d</partner:batchSize>
-    </partner:QueryOptions>
     %s
   </soap:Header>
   <soap:Body>
@@ -41,6 +38,7 @@ module RForce
 </soap:Envelope>
     HERE
 
+    QueryOptions = '<partner:QueryOptions soap:mustUnderstand=\'1\'><partner:batchSize>%d</partner:batchSize></partner:QueryOptions>'
     AssignmentRuleHeaderUsingRuleId = '<partner:AssignmentRuleHeader soap:mustUnderstand="1"><partner:assignmentRuleId>%s</partner:assignmentRuleId></partner:AssignmentRuleHeader>'
     AssignmentRuleHeaderUsingDefaultRule = '<partner:AssignmentRuleHeader soap:mustUnderstand="1"><partner:useDefaultRule>true</partner:useDefaultRule></partner:AssignmentRuleHeader>'
     MruHeader = '<partner:MruHeader soap:mustUnderstand="1"><partner:updateMru>true</partner:updateMru></partner:MruHeader>'
@@ -159,6 +157,12 @@ module RForce
       expand(@builder, {method => args}, urn)
 
       extra_headers = ""
+      
+      # QueryOptions is not valid when making an Apex Webservice SOAP call
+      if !block_given?
+        extra_headers << (QueryOptions % @batch_size)
+      end
+      
       extra_headers << (AssignmentRuleHeaderUsingRuleId % assignment_rule_id) if assignment_rule_id
       extra_headers << AssignmentRuleHeaderUsingDefaultRule if use_default_rule
       extra_headers << MruHeader if update_mru
@@ -176,7 +180,7 @@ module RForce
 
       # Fill in the blanks of the SOAP envelope with our
       # session ID and the expanded XML of our request.
-      request = (Envelope % [@session_id, @batch_size, extra_headers, expanded])
+      request = (Envelope % [@session_id, extra_headers, expanded])
 
       # reset the batch size for the next request
       @batch_size = DEFAULT_BATCH_SIZE
