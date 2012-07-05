@@ -28,7 +28,9 @@ module RForce
       elements = MethodHash.new
 
       children.each do |elem|
+        
         name = elem.name.split(":").last.to_sym
+        next if name == "Id"
         
         if !elements[name]
           elements[name] = to_hash(elem)
@@ -37,6 +39,7 @@ module RForce
         else
           elements[name] = [elements[name]] << to_hash(elem)
         end
+        
       end
       
       return elements.empty? ? nil : elements
