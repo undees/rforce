@@ -27,10 +27,17 @@ module RForce
 
       elements = MethodHash.new
 
+      id_tag_counter = 0
+      
       children.each do |elem|
         
         name = elem.name.split(":").last.to_sym
-        next if name == "Id"
+        
+        if name == :Id
+          id_tag_counter += 1
+        end
+        
+        next if ( name == :Id && id_tag_counter < 1 )
         
         if !elements[name]
           elements[name] = to_hash(elem)
