@@ -27,16 +27,15 @@ module RForce
 
       elements = MethodHash.new
 
+      # Salesforce object id counter...
       id_tag_counter = 0
       
       children.each do |elem|
         
         name = elem.name.split(":").last.to_sym
         
-        if name == :Id
-          id_tag_counter += 1
-        end
-        
+        # Salesforce xml sometimes contains the object id Twice 
+        id_tag_counter += 1 if name == :Id
         next if ( name == :Id && id_tag_counter < 1 )
         
         if !elements[name]
