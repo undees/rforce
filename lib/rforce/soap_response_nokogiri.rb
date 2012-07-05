@@ -27,23 +27,26 @@ module RForce
 
       elements = MethodHash.new
 
-      # Salesforce object id counter...
-      id_tag_counter = 0
       
       children.each do |elem|
         
         name = elem.name.split(":").last.to_sym
         
-        # Salesforce xml sometimes contains the object id Twice 
-        id_tag_counter += 1 if name == :Id
-        next if ( name == :Id && id_tag_counter < 1 )
-        
         if !elements[name]
-          elements[name] = to_hash(elem)
+        
+          # anything inside 'records' should be an array
+          elements[name] = elem.name == 'records' ? [to_hash(elem)] : to_hash(elem)
+          
         elsif Array === elements[name]
+        
           elements[name] << to_hash(elem)
+          
         else
+        
+          # Salesforce xml sometimes contains the object id Twice 
+          next if elem.name == "Id" 
           elements[name] = [elements[name]] << to_hash(elem)
+        
         end
         
       end
