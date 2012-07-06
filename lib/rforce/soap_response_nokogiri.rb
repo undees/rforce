@@ -33,14 +33,9 @@ module RForce
         name = elem.name.split(":").last.to_sym
         
         if !elements[name]
-        
-          # anything inside 'records' should be an array
-          elements[name] = elem.name == 'records' ? [to_hash(elem)] : to_hash(elem)
-          
+          elements[name] = to_hash(elem)
         elsif Array === elements[name]
-        
           elements[name] << to_hash(elem)
-          
         else
         
           # Salesforce xml sometimes contains the object id Twice 
