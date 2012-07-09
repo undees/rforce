@@ -27,7 +27,9 @@ module RForce
 
       elements = MethodHash.new
 
+      
       children.each do |elem|
+        
         name = elem.name.split(":").last.to_sym
         
         if !elements[name]
@@ -35,8 +37,13 @@ module RForce
         elsif Array === elements[name]
           elements[name] << to_hash(elem)
         else
+        
+          # Salesforce xml sometimes contains the object id Twice 
+          next if elem.name == "Id" 
           elements[name] = [elements[name]] << to_hash(elem)
+        
         end
+        
       end
       
       return elements.empty? ? nil : elements

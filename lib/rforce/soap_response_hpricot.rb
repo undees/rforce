@@ -64,6 +64,7 @@ module RForce
           # then put the existing element in, followed
           # by the new one.
         else
+          next if name == :Id
           elements[name] = [elements[name]]
           elements[name] << node_to_ruby(e)
         end
