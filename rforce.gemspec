@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ian Dees"]
-  s.date = "2012-04-29"
+  s.date = "2012-08-01"
   s.description = "RForce is a simple, usable binding to the Salesforce API."
   s.email = ["undees@gmail.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main", "README.txt"]
   s.require_paths = ["lib"]
   s.rubyforge_project = "rforce"
-  s.rubygems_version = "1.8.10"
+  s.rubygems_version = "1.8.23"
   s.summary = "RForce is a simple, usable binding to the Salesforce API."
 
   if s.respond_to? :specification_version then
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
       s.add_development_dependency(%q<hpricot>, ["~> 0.8"])
       s.add_development_dependency(%q<nokogiri>, ["~> 1.5"])
+      s.add_development_dependency(%q<xmlparser>, ["~> 0.7"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.10"])
       s.add_development_dependency(%q<hoe>, ["~> 2.13"])
     else
@@ -37,6 +38,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
       s.add_dependency(%q<hpricot>, ["~> 0.8"])
       s.add_dependency(%q<nokogiri>, ["~> 1.5"])
+      s.add_dependency(%q<xmlparser>, ["~> 0.7"])
       s.add_dependency(%q<rdoc>, ["~> 3.10"])
       s.add_dependency(%q<hoe>, ["~> 2.13"])
     end
@@ -47,6 +49,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
     s.add_dependency(%q<hpricot>, ["~> 0.8"])
     s.add_dependency(%q<nokogiri>, ["~> 1.5"])
+    s.add_dependency(%q<xmlparser>, ["~> 0.7"])
     s.add_dependency(%q<rdoc>, ["~> 3.10"])
     s.add_dependency(%q<hoe>, ["~> 2.13"])
   end

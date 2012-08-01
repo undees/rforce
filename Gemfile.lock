@@ -29,6 +29,7 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
+    xmlparser (0.7.2.1)
 
 PLATFORMS
   ruby
@@ -41,3 +42,4 @@ DEPENDENCIES
   rdoc (~> 3.10)
   rforce!
   rspec (~> 2.8)
+  xmlparser (~> 0.7)
