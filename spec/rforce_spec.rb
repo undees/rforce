@@ -50,8 +50,8 @@ describe 'a SoapResponse implementation' do
     @contents = File.open(fname) {|f| f.read}
 
     [:rexml, :expat, :hpricot, :nokogiri].each do |processor|
-      name = "SoapResponse#{processor.to_s.capitalize}"
-      variable = "@#{processor}_recs"
+      name     = "SoapResponse#{processor.to_s.capitalize}".to_sym
+      variable = "@#{processor}_recs".to_sym
 
       results = begin
         klass = RForce.const_get name
@@ -70,33 +70,19 @@ describe 'a SoapResponse implementation' do
   end
 
   it 'returns the same results with expat' do
-    pending 'duplicate <Id> tags'
     @expat_recs.should == @rexml_recs
   end
 
   it 'returns the same results with hpricot' do
-    pending 'duplicate <Id> tags'
     @hpricot_recs.should == @rexml_recs
-  end
-
-  it 'returns similar results with expat' do
-    pending 'expat not installed' unless @expat_recs
-    @expat_recs.should resemble(@rexml_recs)
-  end
-
-  it 'returns similar results with hpricot' do
-    pending 'hpricot not installed' unless @hpricot_recs
-    @hpricot_recs.should resemble(@rexml_recs)
   end
 
   it 'understands XML entities' do
     expected = "Bee's knees"
     @rexml_recs.first.Description.should == expected
 
-    pending 'expat not installed' unless @expat_recs
     @expat_recs.first.Description.should == expected
 
-    pending 'hpricot not installed' unless @hpricot_recs
     @hpricot_recs.first.Description.should == expected
   end
 end
@@ -109,15 +95,16 @@ describe 'SoapResponseHpricot' do
   end
 end
 
-describe 'SoapResponseNokogiri' do
-    SOAP_WRAPPER = <<-XML
+SOAP_WRAPPER = <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sf="urn:sobject.partner.soap.sforce.com">
   <soapenv:Body>
     %s
-  </soapnenv:Body>
+  </soapenv:Body>
 </soapenv:Envelope>
 XML
+
+shared_examples_for 'a SOAP response' do
   def wrap_in_salesforce_envelope(xml)
     SOAP_WRAPPER % xml
   end
@@ -128,7 +115,7 @@ XML
       <bar>Bin</bar>
     </foo>""")
 
-    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => "Bin"}}
+    klass.new(xml).parse.should == {:foo => {:bar => "Bin"}}
   end
 
   it 'parses repeated elements into arrays' do
@@ -138,7 +125,7 @@ XML
       <bar>Bash</bar>
     </foo>""")
 
-    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
+    klass.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
   end
 
   it 'parses records with single record as an array' do
@@ -147,7 +134,7 @@ XML
       <sf:type>Contact</sf:type>
     </records>""")
 
-    SoapResponseNokogiri.new(xml).parse.should == {:records => [{:type => "Contact"}]}
+    klass.new(xml).parse.should == {:records => [{:type => "Contact"}]}
   end
 
   it 'parses records with multiple records as an array' do
@@ -159,7 +146,7 @@ XML
       <sf:type>Contact</sf:type>
     </records>""")
 
-    SoapResponseNokogiri.new(xml).parse.should == {:records => [{:type => "Contact"}, {:type => "Contact"}]}
+    klass.new(xml).parse.should == {:records => [{:type => "Contact"}, {:type => "Contact"}]}
   end
 
   it 'parses Id array as single string' do
@@ -169,7 +156,7 @@ XML
       <sf:Id>some_id</sf:Id>
     </foo>""")
 
-    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:Id => "some_id"}}
+    klass.new(xml).parse.should == {:foo => {:Id => "some_id"}}
   end
 
   it 'parses booleans and numbers' do
@@ -181,34 +168,57 @@ XML
       <string>normal string</string>
     </foo>""")
 
-    SoapResponseNokogiri.new(xml).parse.should == {:foo => {:size => 20, :done => true, :more => false, :string => "normal string"}}
+    klass.new(xml).parse.should == {:foo => {:size => 20, :done => true, :more => false, :string => "normal string"}}
   end
 
   it 'disregards namespacing when determining hash keys' do
     xml = wrap_in_salesforce_envelope("""
     <soapenv:foo>
       <bar>Bin</bar>
-      <soapenv:bar>Bash</bar>
-    </foo>""")
+      <soapenv:bar>Bash</soapenv:bar>
+    </soapenv:foo>""")
 
-   SoapResponseNokogiri.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
+   klass.new(xml).parse.should == {:foo => {:bar => ["Bin", "Bash"]}}
   end
 
   it 'unescapes any HTML contained in text nodes' do
     xml = wrap_in_salesforce_envelope("""
-    <soapenv:foo>
+    <foo>
       <bar>Bin</bar>
       <bar>&lt;tag attr=&quot;Bee&apos;s knees &amp; toes&quot;&gt;</bar>
     </foo>""")
 
-    SoapResponseNokogiri.new(xml).parse()[:foo][:bar].last.should == %q(<tag attr="Bee's knees & toes">)
+    klass.new(xml).parse()[:foo][:bar].last.should == %q(<tag attr="Bee's knees & toes">)
   end
 
   it 'returns an object that can be navigated via methods in addition to keys' do
     xml = wrap_in_salesforce_envelope("<foo><bar><bin>bash</bin></bar></foo>")
-    SoapResponseNokogiri.new(xml).parse().foo.bar.bin.should == "bash"
+    klass.new(xml).parse().foo.bar.bin.should == "bash"
   end
+end
 
+describe 'SoapResponseNokogiri' do
+  it_behaves_like 'a SOAP response' do
+    let(:klass) { SoapResponseNokogiri }
+  end
+end
+
+describe 'SoapResponseExpat' do
+  it_behaves_like 'a SOAP response' do
+    let(:klass) { SoapResponseExpat }
+  end
+end
+
+describe 'SoapResponseRexml' do
+  it_behaves_like 'a SOAP response' do
+    let(:klass) { SoapResponseRexml }
+  end
+end
+
+describe 'SoapResponseHpricot' do
+  it_behaves_like 'a SOAP response' do
+    let(:klass) { SoapResponseHpricot }
+  end
 end
 
 CreateXml = <<HERE.gsub(/\n\s*/, '')

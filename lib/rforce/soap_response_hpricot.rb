@@ -29,11 +29,11 @@ module RForce
       end
 
       if node.is_a?(Hpricot::Text)
-        return SoapResponseHpricot.unescapeXML(node.inspect[1..-2])
+        return convert(SoapResponseHpricot.unescapeXML(node.inspect[1..-2]))
       end
 
       if children.first.is_a?(Hpricot::Text)
-        return SoapResponseHpricot.unescapeXML(children.first.inspect[1..-2])
+        return convert(SoapResponseHpricot.unescapeXML(children.first.inspect[1..-2]))
       end
 
       # Convert nodes with children into MethodHashes.
@@ -52,24 +52,40 @@ module RForce
 
         case elements[name]
           # The most common case: unique child element tags.
-        when NilClass then elements[name] = node_to_ruby(e)
+        when NilClass then
+          # <records> contents are always arrays
+          elements[name] = :records == name ? [node_to_ruby(e)] : node_to_ruby(e)
 
           # Non-unique child elements become arrays:
 
           # We've already created the array: just
           # add the element.
-        when Array then elements[name] << node_to_ruby(e)
+        when Array then
+          elements[name] << node_to_ruby(e)
 
           # We haven't created the array yet: do so,
           # then put the existing element in, followed
           # by the new one.
         else
+          next if :Id == name # avoid duplicate <Id> tags
           elements[name] = [elements[name]]
           elements[name] << node_to_ruby(e)
         end
       end
 
       return elements.empty? ? nil : elements
+    end
+
+    def self.convert(string)
+      return nil if string.nil?
+      s = string.strip
+
+      case s
+      when '' then nil
+      when /^\d+$/ then Integer(s)
+      when 'true', 'false' then ('true' == s)
+      else s
+      end
     end
   end
 end

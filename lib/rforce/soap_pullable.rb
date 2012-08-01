@@ -54,7 +54,7 @@ module RForce
       # be empty.
       raise 'Parser is confused' unless working_hash.empty? || @current_value.nil?
 
-      use_value = working_hash.empty? ? @current_value : working_hash
+      use_value = working_hash.empty? ? convert(@current_value) : working_hash
       tag_sym = tag_name.to_sym
       element = @stack[index][tag_sym]
 
@@ -82,12 +82,24 @@ module RForce
         end
       else
         # We are here because the name of our current element has not been
-        # assigned yet.
-        @stack[index][tag_sym] = use_value
+        # assigned yet; anything inside 'records' should be an array
+        @stack[index][tag_sym] = (:records == tag_sym ? [use_value] : use_value)
       end
 
       # We are done with the current tag so reset the data for the next one
       @current_value = nil
+    end
+
+    def convert(string)
+      return nil if string.nil?
+      s = string.strip
+
+      case s
+      when '' then nil
+      when /^\d+$/ then Integer(s)
+      when 'true', 'false' then ('true' == s)
+      else s
+      end
     end
   end
 end
