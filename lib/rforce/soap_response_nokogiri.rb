@@ -27,9 +27,7 @@ module RForce
 
       elements = MethodHash.new
 
-      
       children.each do |elem|
-        
         name = elem.name.split(":").last.to_sym
 
         if !elements[name]
@@ -40,9 +38,7 @@ module RForce
         else
           next if elem.name == "Id" # Id fields are duplicated
           elements[name] = [elements[name]] << to_hash(elem)
-        
         end
-        
       end
 
       return elements.empty? ? nil : elements
