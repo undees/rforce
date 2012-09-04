@@ -47,10 +47,7 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
       'find {McFakerson Co} in name fields returning account(id)'
 
   account = answer.searchResponse.result.searchRecords.record
-  account = account.first if account.is_a? Array
-
   account_id = account.Id
-  account_id = account_id.first if account_id.is_a? Array
 
 === Creating a record
 
@@ -76,7 +73,7 @@ Rather than enforcing adherence to the sforce.com schema, RForce assumes you are
 
 == LICENSE:
 
-Copyright (c) 2005-2011 Ian Dees and contributors
+Copyright (c) 2005-2012 Ian Dees and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
