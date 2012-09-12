@@ -159,7 +159,7 @@ shared_examples_for 'a SOAP response' do
     klass.new(xml).parse.should == {:foo => {:Id => "some_id"}}
   end
 
-  it 'parses booleans and numbers' do
+  it 'parses booleans' do
     xml = wrap_in_salesforce_envelope("""
     <foo>
       <size>20</size>
@@ -168,7 +168,7 @@ shared_examples_for 'a SOAP response' do
       <string>normal string</string>
     </foo>""")
 
-    klass.new(xml).parse.should == {:foo => {:size => 20, :done => true, :more => false, :string => "normal string"}}
+    klass.new(xml).parse.should == {:foo => {:size => "20", :done => true, :more => false, :string => "normal string"}}
   end
 
   it 'disregards namespacing when determining hash keys' do

@@ -49,8 +49,6 @@ module RForce
 
       return nil if text.empty?
 
-      text = Integer(text) rescue text # parse numbers
-
       boolean?(text) ? boolean(text) : text
     end
 

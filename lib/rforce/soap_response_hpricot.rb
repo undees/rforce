@@ -82,7 +82,6 @@ module RForce
 
       case s
       when '' then nil
-      when /^\d+$/ then Integer(s)
       when 'true', 'false' then ('true' == s)
       else s
       end

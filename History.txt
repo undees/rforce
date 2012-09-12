@@ -1,3 +1,8 @@
+== 0.10.0 2012-09-12
+* 1 bug fix
+  * Integer auto-parsing mangles ZIP codes (reported by Jason
+    Yanowitz)
+
 == 0.9.0 2012-09-03
 * 1 minor enhancement
   * Automatically correct duplicate ID fields (Tomas Svarovsky)
