@@ -42,6 +42,17 @@ describe 'expand' do
 
     expanded.should == CreateXml
   end
+
+  it 'handles duplicate objects without complaint' do
+    expanded = ''
+    builder  = Builder::XmlMarkup.new(:target => expanded)
+    account  = [:type, 'Account', :name, 'ALPHA']
+    args     = {:create=> [:sObjects, account, :sObjects, account]}
+    urn      = 'urn:partner.soap.sforce.com'
+
+    # should not raise
+    expand builder, args, urn
+  end
 end
 
 describe 'a SoapResponse implementation' do

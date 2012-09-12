@@ -53,8 +53,8 @@ module RForce
   # Expand Ruby data structures into XML.
   def expand(builder, args, xmlns = nil)
     # Nest arrays: [:a, 1, :b, 2] => [[:a, 1], [:b, 2]]
-    if (args.class == Array)
-      args.each_index{|i| args[i, 2] = [args[i, 2]]}
+    if args.is_a?(Array)
+      args = args.each_slice(2).to_a
     end
 
     args.each do |key, value|
