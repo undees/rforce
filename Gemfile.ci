@@ -1,0 +1,8 @@
+source :rubygems
+
+gem 'builder', '~> 3.0'
+gem 'oauth', '~> 0.4'
+gem 'rspec', '~> 2.8'
+gem 'hpricot', '~> 0.8'
+gem 'nokogiri', '~> 1.5'
+gem 'rake', '< 1.0'
