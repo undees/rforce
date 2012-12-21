@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = "RForce is a simple, usable binding to the Salesforce API."
   s.email = ["undees@gmail.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
-  s.files = [".gemtest", "History.txt", "Manifest.txt", "README.txt", "Rakefile", "lib/rforce.rb", "lib/rforce/binding.rb", "lib/rforce/method_keys.rb", "lib/rforce/soap_pullable.rb", "lib/rforce/soap_response.rb", "lib/rforce/soap_response_expat.rb", "lib/rforce/soap_response_hpricot.rb", "lib/rforce/soap_response_nokogiri.rb", "lib/rforce/soap_response_rexml.rb", "lib/rforce/version.rb", "spec/rforce_spec.rb", "spec/soap-response.xml", "spec/spec.opts", "spec/spec_helper.rb", "tasks/timing.rake"]
+  s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "lib/rforce.rb", "lib/rforce/binding.rb", "lib/rforce/method_keys.rb", "lib/rforce/soap_pullable.rb", "lib/rforce/soap_response.rb", "lib/rforce/soap_response_expat.rb", "lib/rforce/soap_response_hpricot.rb", "lib/rforce/soap_response_nokogiri.rb", "lib/rforce/soap_response_rexml.rb", "lib/rforce/version.rb", "spec/rforce_spec.rb", "spec/soap-response.xml", "spec/spec.opts", "spec/spec_helper.rb", "tasks/timing.rake"]
   s.homepage = "http://rforce.rubyforge.org"
   s.rdoc_options = ["--main", "README.txt"]
   s.require_paths = ["lib"]
