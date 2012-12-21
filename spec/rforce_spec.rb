@@ -80,7 +80,9 @@ describe 'a SoapResponse implementation' do
     @rexml_recs.first.keys.size.should == 99
   end
 
+  # Special-case expat tests for CI
   it 'returns the same results with expat' do
+    pending 'expat not installed' unless @expat_recs
     @expat_recs.should == @rexml_recs
   end
 
@@ -92,7 +94,10 @@ describe 'a SoapResponse implementation' do
     expected = "Bee's knees"
     @rexml_recs.first.Description.should == expected
 
-    @expat_recs.first.Description.should == expected
+    # Special-case expat tests for CI
+    if @expat_recs
+      @expat_recs.first.Description.should == expected
+    end
 
     @hpricot_recs.first.Description.should == expected
   end
@@ -214,9 +219,12 @@ describe 'SoapResponseNokogiri' do
   end
 end
 
-describe 'SoapResponseExpat' do
-  it_behaves_like 'a SOAP response' do
-    let(:klass) { SoapResponseExpat }
+# Special-case expat tests for CI
+if RForce.const_defined? :SoapResponseExpat
+  describe 'SoapResponseExpat' do
+    it_behaves_like 'a SOAP response' do
+      let(:klass) { SoapResponseExpat }
+    end
   end
 end
 
