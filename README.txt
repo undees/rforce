@@ -9,6 +9,8 @@
 
 RForce is a simple, usable binding to the Salesforce API.
 
+{<img src="https://travis-ci.org/undees/rforce.png" />}[https://travis-ci.org/undees/rforce]
+
 == FEATURES:
 
 Rather than enforcing adherence to the sforce.com schema, RForce assumes you are familiar with the API. Ruby method names become SOAP method names. Nested Ruby hashes become nested XML elements.
