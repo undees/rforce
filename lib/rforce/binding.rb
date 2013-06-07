@@ -50,11 +50,14 @@ module RForce
     #
     # proxy may be a URL of the form http://user:pass@example.com:port
     #
-    def initialize(url, sid = nil, oauth = nil, proxy = nil)
+    # if a logger is specified it will be used for very verbose SOAP logging
+    #
+    def initialize(url, sid = nil, oauth = nil, proxy = nil, logger = nil)
       @session_id = sid
       @oauth = oauth
       @proxy = proxy
       @batch_size = DEFAULT_BATCH_SIZE
+      @logger = logger
 
       init_server(url)
     end
@@ -181,6 +184,7 @@ module RForce
       # Fill in the blanks of the SOAP envelope with our
       # session ID and the expanded XML of our request.
       request = (Envelope % [@session_id, extra_headers, expanded])
+      @logger && @logger.info("RForce request: #{request}")
 
       # reset the batch size for the next request
       @batch_size = DEFAULT_BATCH_SIZE
@@ -201,6 +205,7 @@ module RForce
       end
 
       # Send the request to the server and read the response.
+      @logger && @logger.info("RForce request to host #{@server} url #{soap_url} headers: #{headers}")
       response = @server.post2(soap_url, request.lstrip, headers)
 
       # decode if we have encoding
@@ -220,6 +225,7 @@ module RForce
         content = decode(response)
       end
 
+      @logger && @logger.info("RForce response: #{content}")
       SoapResponse.new(content).parse
     end
 
