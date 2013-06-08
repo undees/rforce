@@ -1,3 +1,10 @@
+== 0.11.0 2013-06-08
+* 1 minor enhancement
+  * Give the README an .rdoc extension for easy Github viewing
+    (Brad Dunn)
+* 1 bug fix
+  * Fixed malformed request (Jeff Jolma)
+
 == 0.10.0 2012-09-12
 * 1 bug fix
   * Integer auto-parsing mangles ZIP codes (reported by Jason

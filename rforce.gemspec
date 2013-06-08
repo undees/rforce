@@ -2,10 +2,10 @@
 
 Gem::Specification.new do |s|
   s.name = "rforce"
-  s.version = "0.10"
+  s.version = "0.11"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ian Dees"]
-  s.date = "2012-08-01"
+  s.date = "2013-06-08"
   s.description = "RForce is a simple, usable binding to the Salesforce API."
   s.email = ["undees@gmail.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.rdoc"]

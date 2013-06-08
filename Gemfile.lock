@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rforce (0.10)
+    rforce (0.11)
       builder (~> 3.0)
       oauth (~> 0.4)
 
