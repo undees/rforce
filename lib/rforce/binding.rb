@@ -157,12 +157,12 @@ module RForce
       expand(@builder, {method => args}, urn)
 
       extra_headers = ""
-      
+
       # QueryOptions is not valid when making an Apex Webservice SOAP call
       if !block_given?
         extra_headers << (QueryOptions % @batch_size)
       end
-      
+
       extra_headers << (AssignmentRuleHeaderUsingRuleId % assignment_rule_id) if assignment_rule_id
       extra_headers << AssignmentRuleHeaderUsingDefaultRule if use_default_rule
       extra_headers << MruHeader if update_mru
@@ -211,7 +211,7 @@ module RForce
         login(@user, @password)
 
         # repackage and rencode request with the new session id
-        request = (Envelope % [@session_id, @batch_size, extra_headers, expanded])
+        request = (Envelope % [@session_id, extra_headers, expanded])
         request = encode(request)
 
         # Send the request to the server and read the response.
