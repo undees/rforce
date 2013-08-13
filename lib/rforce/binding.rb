@@ -213,7 +213,11 @@ module RForce
 
       # Check to see if INVALID_SESSION_ID was raised and try to relogin in
       if method != :login and @session_id and content =~ /sf:INVALID_SESSION_ID/
-        login(@user, @password)
+        if @user
+          login(@user, @password)
+        else
+          raise "INVALID_SESSION_ID"
+        end
 
         # repackage and rencode request with the new session id
         request = (Envelope % [@session_id, extra_headers, expanded])
