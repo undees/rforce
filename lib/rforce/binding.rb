@@ -211,6 +211,10 @@ module RForce
       # decode if we have encoding
       content = decode(response)
 
+      # Fix charset encoding. Needed because the "content" variable may contain a UTF-8
+      # or ISO-8859-1 string, but is carrying the US-ASCII encoding.
+      content = fix_encoding(content)
+
       # Check to see if INVALID_SESSION_ID was raised and try to relogin in
       if method != :login and @session_id and content =~ /sf:INVALID_SESSION_ID/
         if @user
@@ -227,6 +231,10 @@ module RForce
         response = @server.post2(soap_url, request.lstrip, headers)
 
         content = decode(response)
+
+        # Fix charset encoding. Needed because the "content" variable may contain a UTF-8
+        # or ISO-8859-1 string, but is carrying the US-ASCII encoding.
+        content = fix_encoding(content)
       end
 
       @logger && @logger.info("RForce response: #{content}")
@@ -269,6 +277,36 @@ module RForce
       ensure
         gzw.close
       end
+    end
+
+
+    # fix invalid US-ASCII strings by applying the correct encoding on ruby 1.9+
+    def fix_encoding(string)
+
+      if [:valid_encoding?, :force_encoding].all? { |m| string.respond_to?(m) }
+
+        if !string.valid_encoding?    
+
+          # The 2 possible encodings in responses are UTF-8 and ISO-8859-1
+          # http://www.salesforce.com/us/developer/docs/api/Content/implementation_considerations.htm#topic-title_international
+          ["UTF-8", "ISO-8859-1"].each { |encoding_name|
+
+            s = string.dup.force_encoding(encoding_name)
+
+            if s.valid_encoding?
+              return s
+            end
+
+          }
+
+          raise "Invalid encoding in SOAP response: not in [US-ASCII, UTF-8, ISO-8859-1]"
+
+        end
+
+      end
+      
+      return string
+
     end
 
 
