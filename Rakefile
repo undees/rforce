@@ -8,6 +8,8 @@ require 'hoe/gemspec2'
 Hoe.plugin :gemspec2
 
 Hoe.spec 'rforce' do
+  is_jruby = (RUBY_PLATFORM == 'java')
+
   developer('Ian Dees', 'undees@gmail.com')
 
   self.extra_deps << ['builder', '~> 3.0']
@@ -17,7 +19,7 @@ Hoe.spec 'rforce' do
   self.extra_dev_deps << ['hoe-gemspec2', '~> 1.1']
   self.extra_dev_deps << ['hpricot', '~> 0.8']
   self.extra_dev_deps << ['nokogiri', '~> 1.5']
-  self.extra_dev_deps << ['xmlparser', '~> 0.7']
+  self.extra_dev_deps << ['xmlparser', '~> 0.7'] unless is_jruby
 
   self.rdoc_locations = ['undees@rforce.rubyforge.org:/var/www/gforge-projects/rforce']
   self.remote_rdoc_dir = ''

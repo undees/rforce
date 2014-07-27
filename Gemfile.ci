@@ -6,6 +6,7 @@ gem 'rspec', '~> 2.8'
 gem 'hoe-gemspec2', '~> 1.1'
 gem 'hpricot', '~> 0.8'
 gem 'nokogiri', '~> 1.5'
+gem 'xmlparser', '~> 0.7', :platforms => ['mri']
 gem 'rdoc', '~> 3.10'
 gem 'rake', '< 1.0'
 gem 'hoe', '~> 2.13'
