@@ -44,13 +44,14 @@ module RForce
     MruHeader = '<partner:MruHeader soap:mustUnderstand="1"><partner:updateMru>true</partner:updateMru></partner:MruHeader>'
     ClientIdHeader = '<partner:CallOptions soap:mustUnderstand="1"><partner:client>%s</partner:client></partner:CallOptions>'
 
-    # Connect to the server securely.  If you pass an oauth hash, it
-    # must contain the keys :consumer_key, :consumer_secret,
+    # Create a binding to the server (after which you can call login
+    # or login_with_oauth to connect to it). If you pass an oauth
+    # hash, it must contain the keys :consumer_key, :consumer_secret,
     # :access_token, :access_secret, and :login_url.
     #
     # proxy may be a URL of the form http://user:pass@example.com:port
     #
-    # if a logger is specified it will be used for very verbose SOAP logging
+    # if a logger is specified, it will be used for very verbose SOAP logging
     #
     def initialize(url, sid = nil, oauth = nil, proxy = nil, logger = nil)
       @session_id = sid
@@ -58,88 +59,72 @@ module RForce
       @proxy = proxy
       @batch_size = DEFAULT_BATCH_SIZE
       @logger = logger
-
-      init_server(url)
+      @url = URI.parse(url)
     end
-
 
     def show_debug
       ENV['SHOWSOAP'] == 'true'
     end
 
+    def create_server(url)
+      server = Net::HTTP.Proxy(@proxy).new(url.host, url.port)
+      server.use_ssl = (url.scheme == 'https')
+      server.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    def init_server(url)
-      @url = URI.parse(url)
+      # run ruby with -d or env variable SHOWSOAP=true to see SOAP wiredumps.
+      server.set_debug_output $stderr if show_debug
 
-      if (@oauth)
-        consumer = OAuth::Consumer.new \
-          @oauth[:consumer_key],
-          @oauth[:consumer_secret],
-          {
-            :site => url,
-            :proxy => @proxy
-          }
-
-        consumer.http.set_debug_output $stderr if show_debug
-
-        @server  = OAuth::AccessToken.new \
-          consumer,
-          @oauth[:access_token],
-          @oauth[:access_secret]
-
-        class << @server
-          alias_method :post2, :post
-        end
-      else
-        @server = Net::HTTP.Proxy(@proxy).new(@url.host, @url.port)
-        @server.use_ssl = @url.scheme == 'https'
-        @server.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-        # run ruby with -d or env variable SHOWSOAP=true to see SOAP wiredumps.
-        @server.set_debug_output $stderr if show_debug
-      end
-    end
-
-    #  Connect to remote server
-    #
-    def connect(user, password)
-      @user = user
-      @password = password
-
-      call_remote(:login, [:username, user, :password, password])
+      return server
     end
 
     # Log in to the server with a user name and password, remembering
     # the session ID returned to us by Salesforce.
     def login(user, password)
-      response = connect(user, password)
+      @user     = user
+      @password = password
+      @server   = create_server(@url)
+      response  = call_remote(:login, [:username, user, :password, password])
 
       raise "Incorrect user name / password [#{response.Fault}]" unless response.loginResponse
 
-      result = response[:loginResponse][:result]
+      result      = response[:loginResponse][:result]
       @session_id = result[:sessionId]
+      @url        = URI.parse(result[:serverUrl])
+      @server     = create_server(@url)
 
-      init_server(result[:serverUrl])
-
-      response
+      return response
     end
 
     # Log in to the server with OAuth, remembering
     # the session ID returned to us by Salesforce.
     def login_with_oauth
-      result = @server.post \
-        @oauth[:login_url],
+      consumer = OAuth::Consumer.new \
+        @oauth[:consumer_key],
+        @oauth[:consumer_secret]
+
+      access = OAuth::AccessToken.new \
+        consumer, @oauth[:access_token],
+        @oauth[:access_secret]
+
+      login_url = @oauth[:login_url]
+
+      result = access.post \
+        login_url,
         '',
         {'content-type' => 'application/x-www-form-urlencoded'}
 
       case result
       when Net::HTTPSuccess
-        doc = REXML::Document.new result.body
+        doc         = REXML::Document.new result.body
         @session_id = doc.elements['*/sessionId'].text
-        server_url  = doc.elements['*/serverUrl'].text
-        init_server server_url
+        @url        = URI.parse(doc.elements['*/serverUrl'].text)
+        @server     = access
 
-        return {:sessionId => @sessionId, :serverUrl => server_url}
+        class << @server
+          alias_method :post2, :post
+        end
+
+        return {:sessionId => @session_id, :serverUrl => @url.to_s}
       when Net::HTTPUnauthorized
         raise 'Invalid OAuth tokens'
       else
@@ -151,8 +136,11 @@ module RForce
     # a hash or (if order is important) an array of alternating
     # keys and values.
     def call_remote(method, args)
+      # Different URI requirements for regular vs. OAuth.  This is
+      # *screaming* for a refactor.
+      fallback_soap_url = @oauth ? @url.to_s : @url.path
 
-      urn, soap_url = block_given? ? yield : ["urn:partner.soap.sforce.com", @url.path]
+      urn, soap_url = block_given? ? yield : ["urn:partner.soap.sforce.com", fallback_soap_url]
 
       # Create XML text from the arguments.
       expanded = ''
