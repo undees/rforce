@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = "RForce is a simple, usable binding to the Salesforce API."
   s.email = ["undees@gmail.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.rdoc"]
-  s.files = ["History.txt", "Manifest.txt", "README.rdoc", "Rakefile", "lib/rforce.rb", "lib/rforce/binding.rb", "lib/rforce/method_keys.rb", "lib/rforce/soap_pullable.rb", "lib/rforce/soap_response.rb", "lib/rforce/soap_response_expat.rb", "lib/rforce/soap_response_hpricot.rb", "lib/rforce/soap_response_nokogiri.rb", "lib/rforce/soap_response_rexml.rb", "lib/rforce/version.rb", "spec/rforce_spec.rb", "spec/soap-response.xml", "spec/spec.opts", "spec/spec_helper.rb", "tasks/timing.rake"]
+  s.files = ["History.txt", "Manifest.txt", "README.rdoc", "Rakefile", "lib/rforce.rb", "lib/rforce/binding.rb", "lib/rforce/method_keys.rb", "lib/rforce/soap_pullable.rb", "lib/rforce/soap_response.rb", "lib/rforce/soap_response_expat.rb", "lib/rforce/soap_response_nokogiri.rb", "lib/rforce/soap_response_rexml.rb", "lib/rforce/version.rb", "spec/rforce_spec.rb", "spec/soap-response.xml", "spec/spec.opts", "spec/spec_helper.rb", "tasks/timing.rake"]
   s.homepage = "http://rforce.rubyforge.org"
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["lib"]
@@ -25,9 +25,8 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<builder>, ["~> 3.0"])
       s.add_runtime_dependency(%q<oauth>, ["~> 0.4"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.8"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.99"])
       s.add_development_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-      s.add_development_dependency(%q<hpricot>, ["~> 0.8"])
       s.add_development_dependency(%q<nokogiri>, ["~> 1.5"])
       s.add_development_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
       s.add_development_dependency(%q<rdoc>, ["~> 3.10"])
@@ -35,9 +34,8 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<builder>, ["~> 3.0"])
       s.add_dependency(%q<oauth>, ["~> 0.4"])
-      s.add_dependency(%q<rspec>, ["~> 2.8"])
+      s.add_dependency(%q<rspec>, ["~> 2.99"])
       s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-      s.add_dependency(%q<hpricot>, ["~> 0.8"])
       s.add_dependency(%q<nokogiri>, ["~> 1.5"])
       s.add_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
       s.add_dependency(%q<rdoc>, ["~> 3.10"])
@@ -46,9 +44,8 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<builder>, ["~> 3.0"])
     s.add_dependency(%q<oauth>, ["~> 0.4"])
-    s.add_dependency(%q<rspec>, ["~> 2.8"])
+    s.add_dependency(%q<rspec>, ["~> 2.99"])
     s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-    s.add_dependency(%q<hpricot>, ["~> 0.8"])
     s.add_dependency(%q<nokogiri>, ["~> 1.5"])
     s.add_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
     s.add_dependency(%q<rdoc>, ["~> 3.10"])

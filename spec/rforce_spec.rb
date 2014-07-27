@@ -60,7 +60,7 @@ describe 'a SoapResponse implementation' do
     fname = File.join(File.dirname(__FILE__), 'soap-response.xml')
     @contents = File.open(fname) {|f| f.read}
 
-    [:rexml, :expat, :hpricot, :nokogiri].each do |processor|
+    [:rexml, :expat, :nokogiri].each do |processor|
       name     = "SoapResponse#{processor.to_s.capitalize}".to_sym
       variable = "@#{processor}_recs".to_sym
 
@@ -82,12 +82,8 @@ describe 'a SoapResponse implementation' do
 
   # Special-case expat tests for CI
   it 'returns the same results with expat' do
-    pending 'expat not installed' unless @expat_recs
+    skip 'expat not installed' unless @expat_recs
     @expat_recs.should == @rexml_recs
-  end
-
-  it 'returns the same results with hpricot' do
-    @hpricot_recs.should == @rexml_recs
   end
 
   it 'understands XML entities' do
@@ -98,16 +94,6 @@ describe 'a SoapResponse implementation' do
     if @expat_recs
       @expat_recs.first.Description.should == expected
     end
-
-    @hpricot_recs.first.Description.should == expected
-  end
-end
-
-describe 'SoapResponseHpricot' do
-  it 'parses basic XML entities' do
-    text = '&lt;tag attr=&quot;Bee&apos;s knees &amp; toes&quot;&gt;'
-    SoapResponseHpricot.unescapeXML(text).should ==
-      %q(<tag attr="Bee's knees & toes">)
   end
 end
 
@@ -231,12 +217,6 @@ end
 describe 'SoapResponseRexml' do
   it_behaves_like 'a SOAP response' do
     let(:klass) { SoapResponseRexml }
-  end
-end
-
-describe 'SoapResponseHpricot' do
-  it_behaves_like 'a SOAP response' do
-    let(:klass) { SoapResponseHpricot }
   end
 end
 

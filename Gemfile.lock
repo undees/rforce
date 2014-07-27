@@ -14,7 +14,6 @@ GEM
       rake (>= 0.8, < 11.0)
     hoe-gemspec2 (1.2.0)
       hoe
-    hpricot (0.8.6)
     json (1.8.1)
     mini_portile (0.6.0)
     nokogiri (1.6.3.1)
@@ -39,9 +38,8 @@ PLATFORMS
 DEPENDENCIES
   hoe (~> 3.12)
   hoe-gemspec2 (~> 1.1)
-  hpricot (~> 0.8)
   nokogiri (~> 1.5)
   rdoc (~> 3.10)
   rforce!
-  rspec (~> 2.8)
+  rspec (~> 2.99)
   xmlparser (~> 0.7)
