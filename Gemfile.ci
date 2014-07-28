@@ -10,4 +10,4 @@ gem 'nokogiri', '~> 1.5' unless is_ruby18
 gem 'xmlparser', '~> 0.7', :platforms => ['mri']
 gem 'rdoc', '~> 3.10'
 gem 'rake', '< 1.0'
-gem 'hoe', '~> 2.13'
+gem 'hoe', '~> 3.12'
