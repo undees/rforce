@@ -2,6 +2,9 @@ History.txt
 Manifest.txt
 README.rdoc
 Rakefile
+examples/oauth_setup.rb
+examples/oauth_use.rb
+examples/simple.rb
 lib/rforce.rb
 lib/rforce/binding.rb
 lib/rforce/method_keys.rb

@@ -2,14 +2,37 @@
 
 Gem::Specification.new do |s|
   s.name = "rforce"
-  s.version = "0.11"
+  s.version = "0.12"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ian Dees"]
-  s.date = "2013-06-08"
+  s.date = "2014-07-28"
   s.description = "RForce is a simple, usable binding to the Salesforce API."
   s.email = ["undees@gmail.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.rdoc"]
-  s.files = ["History.txt", "Manifest.txt", "README.rdoc", "Rakefile", "lib/rforce.rb", "lib/rforce/binding.rb", "lib/rforce/method_keys.rb", "lib/rforce/soap_pullable.rb", "lib/rforce/soap_response.rb", "lib/rforce/soap_response_expat.rb", "lib/rforce/soap_response_nokogiri.rb", "lib/rforce/soap_response_rexml.rb", "lib/rforce/version.rb", "spec/rforce_spec.rb", "spec/soap-response.xml", "spec/spec.opts", "spec/spec_helper.rb", "tasks/timing.rake"]
+  s.files = <<HERE
+History.txt
+Manifest.txt
+README.rdoc
+Rakefile
+examples/oauth_setup.rb
+examples/oauth_use.rb
+examples/simple.rb
+lib/rforce.rb
+lib/rforce/binding.rb
+lib/rforce/method_keys.rb
+lib/rforce/soap_pullable.rb
+lib/rforce/soap_response.rb
+lib/rforce/soap_response_expat.rb
+lib/rforce/soap_response_nokogiri.rb
+lib/rforce/soap_response_rexml.rb
+lib/rforce/version.rb
+spec/rforce_spec.rb
+spec/soap-response.xml
+spec/spec.opts
+spec/spec_helper.rb
+tasks/timing.rake
+HERE
+
   s.homepage = "http://rforce.rubyforge.org"
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["lib"]

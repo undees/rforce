@@ -1,3 +1,12 @@
+== 0.12.0 2014-07-27
+* 2 enhancements
+  * Clearer errors when skipping login (Victor Stan)
+  * Allow passing in an optional logger (Jeff Jolma)
+* 3 bug fixes
+  * Fixed URL error in OAuth flow (reported by karthickbabuos)
+  * Corrected UTF-8 handling error (Maxime Rety)
+  * Fixed repeat login issue (Jeff Jolma)
+
 == 0.11.0 2013-06-08
 * 1 minor enhancement
   * Give the README an .rdoc extension for easy Github viewing

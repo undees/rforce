@@ -12,6 +12,7 @@ Hoe.spec 'rforce' do
   is_ruby18 = (RUBY_VERSION =~ /^1.8/)
 
   developer('Ian Dees', 'undees@gmail.com')
+  license('MIT')
 
   self.extra_deps << ['builder', '~> 3.0']
   self.extra_deps << ['oauth', '~> 0.4']
