@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.summary = "RForce is a simple, usable binding to the Salesforce API."
 
   is_jruby = (RUBY_PLATFORM == 'java')
+  is_ruby18 = (RUBY_VERSION =~ /^1.8/)
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -27,7 +28,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<oauth>, ["~> 0.4"])
       s.add_development_dependency(%q<rspec>, ["~> 2.99"])
       s.add_development_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-      s.add_development_dependency(%q<nokogiri>, ["~> 1.5"])
+      s.add_development_dependency(%q<nokogiri>, ["~> 1.5"]) unless is_ruby18
       s.add_development_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
       s.add_development_dependency(%q<rdoc>, ["~> 3.10"])
       s.add_development_dependency(%q<hoe>, ["~> 3.12"])
@@ -36,7 +37,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<oauth>, ["~> 0.4"])
       s.add_dependency(%q<rspec>, ["~> 2.99"])
       s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-      s.add_dependency(%q<nokogiri>, ["~> 1.5"])
+      s.add_dependency(%q<nokogiri>, ["~> 1.5"]) unless is_ruby18
       s.add_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
       s.add_dependency(%q<rdoc>, ["~> 3.10"])
       s.add_dependency(%q<hoe>, ["~> 3.12"])
@@ -46,7 +47,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<oauth>, ["~> 0.4"])
     s.add_dependency(%q<rspec>, ["~> 2.99"])
     s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-    s.add_dependency(%q<nokogiri>, ["~> 1.5"])
+    s.add_dependency(%q<nokogiri>, ["~> 1.5"]) unless is_ruby18
     s.add_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
     s.add_dependency(%q<rdoc>, ["~> 3.10"])
     s.add_dependency(%q<hoe>, ["~> 3.12"])

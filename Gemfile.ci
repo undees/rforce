@@ -1,11 +1,12 @@
-source :rubygems
+source 'https://rubygems.org'
+
+is_jruby_18mode = (RUBY_PLATFORM == 'java' && RUBY_VERSION =~ /^1.8/)
 
 gem 'builder', '~> 3.0'
 gem 'oauth', '~> 0.4'
 gem 'rspec', '~> 2.99'
 gem 'hoe-gemspec2', '~> 1.1'
-gem 'hpricot', '~> 0.8'
-gem 'nokogiri', '~> 1.5'
+gem 'nokogiri', '~> 1.5' unless is_jruby_18mode
 gem 'xmlparser', '~> 0.7', :platforms => ['mri']
 gem 'rdoc', '~> 3.10'
 gem 'rake', '< 1.0'
