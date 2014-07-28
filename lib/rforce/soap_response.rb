@@ -6,7 +6,7 @@ require 'rforce/soap_response_rexml'
 module RForce
   # Use the fastest XML parser available.
   SoapResponse =
-    (RForce::const_get(:SoapResponseExpat) rescue nil)    ||
     (RForce::const_get(:SoapResponseNokogiri) rescue nil) ||
+    (RForce::const_get(:SoapResponseExpat) rescue nil)    ||
     SoapResponseRexml
 end

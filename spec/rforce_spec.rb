@@ -199,9 +199,11 @@ shared_examples_for 'a SOAP response' do
   end
 end
 
-describe 'SoapResponseNokogiri' do
-  it_behaves_like 'a SOAP response' do
-    let(:klass) { SoapResponseNokogiri }
+if RForce.const_defined? :SoapResponseNokogiri
+  describe 'SoapResponseNokogiri' do
+    it_behaves_like 'a SOAP response' do
+      let(:klass) { SoapResponseNokogiri }
+    end
   end
 end
 

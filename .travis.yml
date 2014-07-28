@@ -1,6 +1,6 @@
 language: ruby
 gemfile: Gemfile.ci
-install: "bundle update && bundle install"
+install: "rm Gemfile.lock && bundle install"
 script: "bundle exec rake spec"
 rvm:
   - 1.8.7
