@@ -7,7 +7,6 @@ task :timing do
 
   [:SoapResponseRexml,
    :SoapResponseExpat,
-   :SoapResponseHpricot,
    :SoapResponseNokogiri].each do |name|
     begin
       klass = RForce.const_get name
