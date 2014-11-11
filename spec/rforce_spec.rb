@@ -7,6 +7,10 @@ describe MethodKeys do
 
     h.foo.should == :bar
     h.nonexistent.should be_nil
+
+    [:foo, :nonexistent].each do |method|
+      h.respond_to?(method).should be true
+    end
   end
 
   it 'provides a Hash-like class' do
@@ -17,6 +21,10 @@ describe MethodKeys do
     mh.one.should == 1
     mh.ten.should == 10
     mh.nothing.should be_nil
+
+    [:one, :ten, :nothing].each do |method|
+      mh.respond_to?(method).should be true
+    end
   end
 end
 
