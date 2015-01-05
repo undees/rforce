@@ -136,6 +136,8 @@ module RForce
     # a hash or (if order is important) an array of alternating
     # keys and values.
     def call_remote(method, args)
+      @server ||= create_server(@url)
+
       # Different URI requirements for regular vs. OAuth.  This is
       # *screaming* for a refactor.
       fallback_soap_url = @oauth ? @url.to_s : @url.path
