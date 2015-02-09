@@ -1,4 +1,4 @@
-== master 2015-01-05
+== 0.13.0 2015-01-05
 * 1 bug fix
   * Attempt server connection even if caller hasn't logged in yet
     (reported by desheikh)
