@@ -1,3 +1,10 @@
+== 0.14.0 2019-08-20
+
+* 1 security update
+  * Upgraded away from vulnerable Nokogiri version
+* 1 enhancement
+  * Slightly modernized project layout
+
 == 0.13.0 2015-01-05
 * 1 bug fix
   * Attempt server connection even if caller hasn't logged in yet

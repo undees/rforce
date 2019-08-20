@@ -1,8 +1,6 @@
 = rforce
 
 * http://github.com/undees/rforce
-* http://bitbucket.org/undees/rforce
-* http://rdoc.info/github/undees/rforce
 
 == DESCRIPTION:
 

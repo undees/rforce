@@ -1,78 +1,36 @@
-# -*- encoding: utf-8 -*-
+lib = File.expand_path("lib", __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "rforce/version"
 
-Gem::Specification.new do |s|
-  s.name = "rforce"
-  s.version = "0.12"
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Ian Dees"]
-  s.date = "2014-07-28"
-  s.description = "RForce is a simple, usable binding to the Salesforce API."
-  s.email = ["undees@gmail.com"]
-  s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.rdoc"]
-  s.files = <<HERE
-History.txt
-Manifest.txt
-README.rdoc
-Rakefile
-examples/oauth_setup.rb
-examples/oauth_use.rb
-examples/simple.rb
-lib/rforce.rb
-lib/rforce/binding.rb
-lib/rforce/method_keys.rb
-lib/rforce/soap_pullable.rb
-lib/rforce/soap_response.rb
-lib/rforce/soap_response_expat.rb
-lib/rforce/soap_response_nokogiri.rb
-lib/rforce/soap_response_rexml.rb
-lib/rforce/version.rb
-spec/rforce_spec.rb
-spec/soap-response.xml
-spec/spec.opts
-spec/spec_helper.rb
-tasks/timing.rake
-HERE
+Gem::Specification.new do |spec|
+  spec.name          = "rforce"
+  spec.version       = RForce::VERSION
+  spec.authors       = ["Erin Dees"]
+  spec.email         = ["undees@gmail.com"]
 
-  s.homepage = "http://rforce.rubyforge.org"
-  s.rdoc_options = ["--main", "README.rdoc"]
-  s.require_paths = ["lib"]
-  s.rubyforge_project = "rforce"
-  s.rubygems_version = "1.8.23"
-  s.summary = "RForce is a simple, usable binding to the Salesforce API."
+  spec.summary       = %q{A simple, usable binding to the Salesforce API.}
+  spec.homepage      = "https://github.com/undees/rforce"
+  spec.license       = "MIT"
 
-  is_jruby = (RUBY_PLATFORM == 'java')
-  is_ruby18 = (RUBY_VERSION =~ /^1.8/)
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = "https://github.com/undees/rforce"
+  spec.metadata["changelog_uri"] = "https://github.com/undees/rforce/"
 
-  if s.respond_to? :specification_version then
-    s.specification_version = 3
-
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<builder>, ["~> 3.0"])
-      s.add_runtime_dependency(%q<oauth>, ["~> 0.4"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.99"])
-      s.add_development_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-      s.add_development_dependency(%q<nokogiri>, ["~> 1.5"]) unless is_ruby18
-      s.add_development_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
-      s.add_development_dependency(%q<rdoc>, ["~> 3.10"])
-      s.add_development_dependency(%q<hoe>, ["~> 3.12"])
-    else
-      s.add_dependency(%q<builder>, ["~> 3.0"])
-      s.add_dependency(%q<oauth>, ["~> 0.4"])
-      s.add_dependency(%q<rspec>, ["~> 2.99"])
-      s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-      s.add_dependency(%q<nokogiri>, ["~> 1.5"]) unless is_ruby18
-      s.add_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
-      s.add_dependency(%q<rdoc>, ["~> 3.10"])
-      s.add_dependency(%q<hoe>, ["~> 3.12"])
-    end
-  else
-    s.add_dependency(%q<builder>, ["~> 3.0"])
-    s.add_dependency(%q<oauth>, ["~> 0.4"])
-    s.add_dependency(%q<rspec>, ["~> 2.99"])
-    s.add_dependency(%q<hoe-gemspec2>, ["~> 1.1"])
-    s.add_dependency(%q<nokogiri>, ["~> 1.5"]) unless is_ruby18
-    s.add_dependency(%q<xmlparser>, ["~> 0.7"]) unless is_jruby
-    s.add_dependency(%q<rdoc>, ["~> 3.10"])
-    s.add_dependency(%q<hoe>, ["~> 3.12"])
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   end
+  spec.require_paths = ["lib"]
+
+  spec.add_runtime_dependency "builder", "~> 3.0"
+  spec.add_runtime_dependency "oauth", "~> 0.4"
+
+  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
+
+  # Optional XML parsing engines
+  spec.add_development_dependency "nokogiri", "~> 1.10.4"
+  spec.add_development_dependency("xmlparser", "~> 0.7") unless RUBY_PLATFORM == 'java'
 end

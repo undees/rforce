@@ -1,13 +1,8 @@
 source 'https://rubygems.org'
 
-is_ruby18 = (RUBY_VERSION =~ /^1.8/)
-
 gem 'builder', '~> 3.0'
 gem 'oauth', '~> 0.4'
-gem 'rspec', '~> 2.99'
-gem 'hoe-gemspec2', '~> 1.1'
-gem 'nokogiri', '~> 1.5' unless is_ruby18
+gem 'bundler', '~> 2.0'
+gem 'rspec', '~> 3.0'
+gem 'nokogiri', '~> 1.10.4'
 gem 'xmlparser', '~> 0.7', :platforms => ['mri']
-gem 'rdoc', '~> 3.10'
-gem 'rake', '< 1.0'
-gem 'hoe', '~> 3.12'
