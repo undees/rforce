@@ -27,10 +27,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "oauth", "~> 0.4"
 
   spec.add_development_dependency "bundler", "~> 2.0"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake", "~> 12.3.3"
   spec.add_development_dependency "rspec", "~> 3.0"
 
   # Optional XML parsing engines
-  spec.add_development_dependency "nokogiri", "~> 1.10.4"
+  spec.add_development_dependency "nokogiri", "~> 1.10.8"
   spec.add_development_dependency("xmlparser", "~> 0.7") unless RUBY_PLATFORM == 'java'
 end
