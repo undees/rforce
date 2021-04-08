@@ -53,13 +53,14 @@ module RForce
     #
     # if a logger is specified, it will be used for very verbose SOAP logging
     #
-    def initialize(url, sid = nil, oauth = nil, proxy = nil, logger = nil)
+    def initialize(url, sid = nil, oauth = nil, proxy = nil, logger = nil, timeout = 5)
       @session_id = sid
       @oauth = oauth
       @proxy = proxy
       @batch_size = DEFAULT_BATCH_SIZE
       @logger = logger
       @url = URI.parse(url)
+      @timeout = timeout
     end
 
     def show_debug
@@ -70,6 +71,8 @@ module RForce
       server = Net::HTTP.Proxy(@proxy).new(url.host, url.port)
       server.use_ssl = (url.scheme == 'https')
       server.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      server.open_timeout = @timeout
+      server.read_timeout = @timeout
 
       # run ruby with -d or env variable SHOWSOAP=true to see SOAP wiredumps.
       server.set_debug_output $stderr if show_debug
