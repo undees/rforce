@@ -1,3 +1,10 @@
+== 0.15.0 2021-04-22
+
+* 1 security update
+  * Upgraded away from vulnerable OAuth version
+* 1 compatibility update
+  * Dropped expat/xmlbuilder for lack of compatibility
+
 == 0.14.0 2019-08-20
 
 * 1 security update
