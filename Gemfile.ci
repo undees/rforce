@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'builder', '~> 3.0'
-gem 'oauth', '~> 0.4'
+gem 'oauth', '~> 0.5.5'
 gem 'rspec', '~> 3.0'
 gem 'nokogiri', '~> 1.10.4'
-gem 'xmlparser', '~> 0.7', :platforms => ['mri']

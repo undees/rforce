@@ -68,7 +68,7 @@ describe 'a SoapResponse implementation' do
     fname = File.join(File.dirname(__FILE__), 'soap-response.xml')
     @contents = File.open(fname) {|f| f.read}
 
-    [:rexml, :expat, :nokogiri].each do |processor|
+    [:rexml, :nokogiri].each do |processor|
       name     = "SoapResponse#{processor.to_s.capitalize}".to_sym
       variable = "@#{processor}_recs".to_sym
 
@@ -88,20 +88,9 @@ describe 'a SoapResponse implementation' do
     @rexml_recs.first.keys.size.should == 99
   end
 
-  # Special-case expat tests for CI
-  it 'returns the same results with expat' do
-    skip 'expat not installed' unless @expat_recs
-    @expat_recs.should == @rexml_recs
-  end
-
   it 'understands XML entities' do
     expected = "Bee's knees"
     @rexml_recs.first.Description.should == expected
-
-    # Special-case expat tests for CI
-    if @expat_recs
-      @expat_recs.first.Description.should == expected
-    end
   end
 end
 
@@ -211,15 +200,6 @@ if RForce.const_defined? :SoapResponseNokogiri
   describe 'SoapResponseNokogiri' do
     it_behaves_like 'a SOAP response' do
       let(:klass) { SoapResponseNokogiri }
-    end
-  end
-end
-
-# Special-case expat tests for CI
-if RForce.const_defined? :SoapResponseExpat
-  describe 'SoapResponseExpat' do
-    it_behaves_like 'a SOAP response' do
-      let(:klass) { SoapResponseExpat }
     end
   end
 end

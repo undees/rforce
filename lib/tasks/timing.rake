@@ -6,7 +6,6 @@ task :timing do
   contents = File.open(fname) {|f| f.read}
 
   [:SoapResponseRexml,
-   :SoapResponseExpat,
    :SoapResponseNokogiri].each do |name|
     begin
       klass = RForce.const_get name

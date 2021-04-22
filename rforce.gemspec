@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "builder", "~> 3.0"
-  spec.add_runtime_dependency "oauth", "~> 0.4"
+  spec.add_runtime_dependency "oauth", "~> 0.5.5"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 12.3.3"
@@ -32,5 +32,4 @@ Gem::Specification.new do |spec|
 
   # Optional XML parsing engines
   spec.add_development_dependency "nokogiri", "~> 1.10.8"
-  spec.add_development_dependency("xmlparser", "~> 0.7") unless RUBY_PLATFORM == 'java'
 end
